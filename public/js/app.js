@@ -1,6 +1,4 @@
 
-
-
 const dailyRatesForm = document.querySelector('form');
 const searchExchange = document.querySelector('#exchange');
 const searchAsset = document.querySelector('#asset');
@@ -41,7 +39,7 @@ const unixTime = (startDate) => {
 
     
   //fetch the api from client side
-   fetch(`http://localhost:8000/${exchange}?time=${startDate}&asset=${asset}`).then((response)=> {
+   fetch(`/${exchange}?time=${startDate}&asset=${asset}`).then((response)=> {
     response.json().then((data) => {
         if(data.error) {
             console.log(data.error);
