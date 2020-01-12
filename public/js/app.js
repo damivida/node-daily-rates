@@ -1,4 +1,4 @@
-console.log('client side java script')
+
 
 
 const dailyRatesForm = document.querySelector('form');
