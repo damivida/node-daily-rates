@@ -5,6 +5,7 @@ const hbs = require('hbs');
 const poloniexApi = require('./utils/poloniex');
 
 const app = express();
+const port = process.env.PORT || 8000;
 
 //Define paths for express config
 const publicDirectoryPath = path.join(__dirname, '../public');
@@ -141,6 +142,6 @@ app.get('*', (req, res) => {
     })
 })
 
-app.listen(8000, () => {
-    console.log('Server is up and running on port 8000.')
+app.listen(port, () => {
+    console.log(`Server is up and running on port ${port} .`)
 });
