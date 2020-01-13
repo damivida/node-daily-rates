@@ -79,7 +79,8 @@ app.get('/poloniex', (req, res) => {
         }
 let exchange = 'Poloniex';
 let average = (high+low+close+open)/4;
-//console.log(average);
+ average = average.toFixed(8);
+console.log(average);
 
             res.send({
                 exchange: exchange,
