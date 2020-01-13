@@ -14,7 +14,7 @@ const poloniexApi = (time, asset,  callback) => {
         }else if (body.error) {
             callback('Unable to find rates', undefined);
         }else {
-
+            
             callback(undefined, {
                 wta:body[0].weightedAverage,
                 open:body[0].open,

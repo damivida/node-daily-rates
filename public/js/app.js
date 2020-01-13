@@ -46,11 +46,11 @@ const unixTime = (startDate) => {
             messageOne.textContent = data.error;
 
         }else {
-            console.log(exchange)
+           /*  console.log(exchange)
             console.log(data.unixTime);
             console.log(`Date: ${time}`);
             console.log(data.pair);
-            console.log(data.weightedAverage);
+            console.log(data.weightedAverage); */
 
             messageOne.textContent = `Exchange: ${data.exchange}`;
             messageTwo.textContent = `Unix Time ${data.unixTime}`;
