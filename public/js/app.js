@@ -44,6 +44,16 @@ const unixTime = (startDate) => {
         if(data.error) {
             console.log(data.error);
             messageOne.textContent = data.error;
+            messageTwo.textContent = '';
+            messageThree.textContent = ''
+            messageFour.textContent = ''
+            messageFive.textContent = ''
+            messageSix.textContent = ''
+            messageSeven.textContent = ''
+            messageEight.textContent = ''
+            messageNine.textContent = ''
+            messageTen.textContent = ''
+            messageEleven.textContent = '';
 
         }else {
            /*  console.log(exchange)
