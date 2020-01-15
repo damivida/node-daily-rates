@@ -3,6 +3,7 @@ const express = require('express');
 const hbs = require('hbs');
 
 const poloniexApi = require('./utils/poloniex');
+//const binanceApi = require('./utils/binance');
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -79,7 +80,8 @@ app.get('/poloniex', (req, res) => {
         }
 let exchange = 'Poloniex';
 let average = (high+low+close+open)/4;
- average = average.toFixed(8);
+average = average.toFixed(8);
+
 console.log(average);
 
             res.send({
@@ -99,6 +101,20 @@ console.log(average);
     });
 
 });
+
+
+app.get('/binance', (req, res) => {
+
+    if(!req.query.time || !req.query.asset) {
+        return res.send({
+            error: 'Please provide correct time and asset'
+        })
+    }
+
+
+});
+
+
 
 /* app.get('/dailyRates', (req, res) => {
 
