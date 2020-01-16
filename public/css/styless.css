@@ -20,6 +20,7 @@ footer {
     border-top: 1px solid #eeeeee;
     margin-top: 16px;
     padding: 16px 0;
+    font-size: smaller;
 }
 
 header {
@@ -62,8 +63,13 @@ button {
 }
 
 
+#assetsToCollect {
+    color: grey;
+    font-size: smaller;
+}
+
 #message-1 {
-    color: indigo;
+    color: blueviolet;
     font-weight: bold;
 }
 
@@ -72,9 +78,10 @@ button {
 }
 
 #message-11 {
-    color: crimson;
+    color: rgb(184, 48, 75);
     font-weight: bold;
 }
+
 
 
 

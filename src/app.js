@@ -3,7 +3,7 @@ const express = require('express');
 const hbs = require('hbs');
 
 const poloniexApi = require('./utils/poloniex');
-//const binanceApi = require('./utils/binance');
+const binanceApi = require('./utils/binance');
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -64,6 +64,7 @@ app.get('/test', (req, res) => {
     res.send(`You provided ${req.query.address} as the address and ${req.query.city} as a city`);
 });
 
+//GET POLONIEX API
 app.get('/poloniex', (req, res) => {
 
     if(!req.query.time || !req.query.asset) {
@@ -78,22 +79,22 @@ app.get('/poloniex', (req, res) => {
                 error:error
             });
         }
-let exchange = 'Poloniex';
+
 let average = (high+low+close+open)/4;
-average = average.toFixed(8);
+average = parseFloat(average).toFixed(8);
 
 console.log(average);
 
             res.send({
-                exchange: exchange,
+                exchange: 'Poloniex',
                 unixTime: req.query.time,
                 pair: req.query.asset,
-                open: open,
-                high: high,
-                low: low,
-                close: close,
-                volume: volume,
-                average: average,
+                open,
+                high,
+                low,
+                close,
+                volume,
+                average,
                 weightedAverage: wta
 
             });
@@ -103,6 +104,8 @@ console.log(average);
 });
 
 
+
+//GET BINANCE API
 app.get('/binance', (req, res) => {
 
     if(!req.query.time || !req.query.asset) {
@@ -110,6 +113,32 @@ app.get('/binance', (req, res) => {
             error: 'Please provide correct time and asset'
         })
     }
+
+    binanceApi(req.query.time, req.query.asset, (error, {open, high, low, close, volume} = {}) => {
+        if(error) {
+            return res.send({
+                error:error
+            });
+        }
+
+    let average = (open+high+low+close)/4;
+    average = parseFloat(average).toFixed(8);
+
+        res.send({
+            exchange: 'Binance',
+            unixTime: req.query.time,
+            pair: req.query.asset,
+            open,
+            high, 
+            low,
+            close,
+            volume,
+            average,
+            weightedAverage:'Currently not in use for Binance'
+
+        });
+
+    }) 
 
 
 });
