@@ -22,22 +22,6 @@ dailyRatesForm.addEventListener('submit', (e) => {
    const asset = searchAsset.value;
    const time = searchTime.value;
 
-/* if(!time) {
-
-            messageTwo.textContent = '';
-            messageThree.textContent = ''
-            messageFour.textContent = ''
-            messageFive.textContent = ''
-            messageSix.textContent = ''
-            messageSeven.textContent = ''
-            messageEight.textContent = ''
-            messageNine.textContent = ''
-            messageTen.textContent = ''
-            messageEleven.textContent = '';
-
-    return messageOne.textContent = 'Please select the date!'
-} */
-
  if(exchange === 'poloniex') {
      let assetsOnPoloniex = document.querySelector('#assetsToCollect');
      assetsOnPoloniex.textContent = 'Assets to collect on Poloniex: DOGE, DASH, ETH, REP, LTC, XMR, ZEC, ETC';

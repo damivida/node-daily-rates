@@ -11,7 +11,7 @@ let url = `https://api.binance.com/api/v1/klines?symbol=${asset}BTC&interval=1d&
     request({url, json:true}, (error, {body}) => {
         if(error) {
             callback('Unable to connect to location services!', undefined);
-        }else if (body.code) {
+        }else if (body.code || body.length === 0) {
             callback('Unable to find rates', undefined);
         }else {
 
