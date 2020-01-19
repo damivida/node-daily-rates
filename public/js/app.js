@@ -30,8 +30,15 @@ dailyRatesForm.addEventListener('submit', (e) => {
     let assetsOnBinance = document.querySelector('#assetsToCollect');
     assetsOnBinance.textContent = 'Assets to collect on Binance: BTG, EOS';
 
+ }else if(exchange === 'hitbtc') {
+    let assetsOnHitBtc = document.querySelector('#assetsToCollect');
+    assetsOnHitBtc.textContent = 'Assets to collect on HitBtc: ETN, XMC, DGB';
+
  }
 
+
+
+ 
 //convert UTC time in unix time in millisecounds
 const unixTime = (startDate) => {
 
