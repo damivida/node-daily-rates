@@ -1,0 +1,49 @@
+const request =  require('request');
+
+const gateIoApi = (time, asset, callback) => {
+
+
+    const getHours = (askedUnixTime) => {
+
+        const curDate = new Date();
+        let newDateOnly = curDate.toJSON().slice(0,10);
+        
+        const starTime = '01:00:00';
+        
+        const dateTime = newDateOnly + ' ' + starTime;
+        
+        const unixDateTime = Date.parse(dateTime)
+        
+        const timeInSec =  (unixDateTime - askedUnixTime)/1000;
+        const timeInMin = timeInSec/60
+        const timeInHour = timeInMin/60
+        
+        return(timeInHour);
+        
+        }
+        
+        
+        const rangeHour = getHours(time);
+
+    let url = `https://data.gateio.life/api2/1/candlestick2/${asset}_btc?group_sec=86400&range_hour=${rangeHour}`;
+ 
+
+        request({url, json:true}, (error, {body}) => {
+            if(error) {
+                callback('Unable to connect to location services!', undefined);
+            }else if (body.code || body.lngth === 0) {
+                callback('Unable to find rates', undefined);
+            }else {
+
+                callback(undefined, {
+                    open:parseFloat(body.data[0][5]),
+                    high:parseFloat(body.data[0][3]),
+                    low:parseFloat(body.data[0][4]),
+                    close:parseFloat(body.data[0][2]),
+                    volume:parseFloat(body.data[0][1])
+                })
+            }
+        });
+}
+
+module.exports = gateIoApi;

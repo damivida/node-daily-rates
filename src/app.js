@@ -5,6 +5,9 @@ const hbs = require('hbs');
 const poloniexApi = require('./utils/poloniex');
 const binanceApi = require('./utils/binance');
 const hitBtcApi = require('./utils/hitbtc');
+const gateIoApi = require('./utils/gateio');
+
+
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -186,6 +189,49 @@ app.get('/hitbtc', (req, res) => {
 
     });
 });
+
+
+
+//GET GATEIO API
+app.get('/gateio', (req, res) => {
+    if(!req.query.time || !req.query.asset) {
+        return res.send({
+            error: 'Please provide correct time and asset'
+        })
+    }
+
+    gateIoApi(req.query.time, req.query.asset, (error, {open, high, low, close, volume} = {}) => {
+        if(error) {
+            return res.send({
+                error
+            });
+        } 
+
+        
+    //average calc
+    let average = (open+high+low+close)/4;
+    average = average.toFixed(8);
+    average = parseFloat(average);
+
+    res.send({
+        exchange: 'Gate.io',
+        unixTime: req.query.time,
+        pair: req.query.asset,
+        open,
+        high,
+        low,
+        close,
+        volume,
+        average,
+        weightedAverage: 'Currently not in use for Gate.io'
+    });
+
+
+
+    });
+
+});
+
 
 
 /* app.get('/dailyRates', (req, res) => {
