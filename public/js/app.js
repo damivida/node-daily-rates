@@ -34,7 +34,11 @@ dailyRatesForm.addEventListener('submit', (e) => {
     let assetsOnHitBtc = document.querySelector('#assetsToCollect');
     assetsOnHitBtc.textContent = 'Assets to collect on HitBtc: ETN, XMC, DGB';
 
+ }else if(exchange === 'gateio') {
+    let assetsOnGateIo = document.querySelector('#assetsToCollect');
+    assetsOnGateIo.textContent = 'Assets to collect on Gate.io: Beam';
  }
+
 
 
 
