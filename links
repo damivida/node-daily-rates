@@ -11,3 +11,6 @@ https://api.binance.com/api/v1/klines?symbol=XMRBTC&interval=1d&startTime=157844
 
 HitBtc Api
 https://api.hitbtc.com/api/2/public/candles/ETNBTC?from=1579046400000&period=D1
+
+Gateio Api
+https://data.gateio.life/api2/1/candlestick2/beam_btc?group_sec=86400&range_hour=240
