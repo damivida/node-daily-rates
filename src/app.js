@@ -275,6 +275,8 @@ app.get('/exchangeAverage', (req, res) => {
                     
 
                     res.send({
+                        unixTime: req.query.time,
+                        pair: req.query.asset,
                         polAvg,
                         binAvg,
                         hitAvg,

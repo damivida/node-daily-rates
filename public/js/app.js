@@ -39,7 +39,7 @@ dailyRatesForm.addEventListener('submit', (e) => {
         assetsOnGateIo.textContent = 'Assets to collect on Gate.io: Beam';
     } else if (exchange === 'exchangeAverage') {
         let assetsAllEx = document.querySelector('#assetsToCollect');
-        assetsAllEx.textContent = '--'
+        assetsAllEx.textContent = 'Assets available on all exchanges: DOGE, ETH, LTC, XMR, ZEC, ETC, EOS';
     }
 
 
@@ -82,7 +82,7 @@ dailyRatesForm.addEventListener('submit', (e) => {
                  console.log(data.weightedAverage); */
 
                 messageOne.textContent = `Exchange: ${data.exchange}`;
-                messageTwo.textContent = `Unix Time ${data.unixTime}`;
+                messageTwo.textContent = `Unix Time: ${data.unixTime}`;
                 messageThree.textContent = `Date: ${time}`;
                 messageFour.textContent = `Altcoin: ${data.pair}`;
                 messageFive.textContent = `Open: ${data.open}`;
@@ -95,16 +95,16 @@ dailyRatesForm.addEventListener('submit', (e) => {
             } else {
 
                 messageOne.textContent = 'All exchange average:';
-                messageTwo.textContent = `Poloniex: ${data.polAvg}`;
-                messageThree.textContent = `Binance: ${data.binAvg}`;
-                messageFour.textContent = `HitBTC: ${data.hitAvg}`;
-                messageFive.textContent = `Gate.io: ${data.gateAvg}`;
-                messageSix.textContent = `All Exchange Avg: ${data.allExchangeAverage}`;
-                messageSeven.textContent = '';
-                messageEight.textContent = '';
+                messageTwo.textContent = `Unix Time: ${data.unixTime}`;
+                messageThree.textContent = `Date: ${time}`;
+                messageFour.textContent = `Altcoin: ${data.pair}`;
+                messageFive.textContent = `Poloniex: ${data.polAvg}`;
+                messageSix.textContent = `Binance: ${data.binAvg}`;
+                messageSeven.textContent = `HitBtc: ${data.hitAvg}`;
+                messageEight.textContent = `Gate.io: ${data.gateAvg}`;
+                messageEleven.textContent = `All Exchange Avg: ${data.allExchangeAverage}`;
                 messageNine.textContent = '';
                 messageTen.textContent = '';
-                messageEleven.textContent = '';
             }
         })
     });
