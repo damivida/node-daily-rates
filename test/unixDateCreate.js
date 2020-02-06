@@ -15,12 +15,14 @@ const timeInMin = timeInSec/60
 const timeInHour = timeInMin/60
 
 
-
+if(timeInHour === -1) {
+    timeInHour = 0;
+}
 return(timeInHour);
 
 }
 
 
-const hForgate = getHours(1578614400000);
+const hForgate = getHours(1580947200000);
 
 console.log(hForgate);

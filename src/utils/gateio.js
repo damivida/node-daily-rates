@@ -8,7 +8,7 @@ const gateIoApi = (time, asset, callback) => {
         const curDate = new Date();
         let newDateOnly = curDate.toJSON().slice(0,10);
         
-        const starTime = '01:00:00';
+        const starTime = '00:00:00';
         
         const dateTime = newDateOnly + ' ' + starTime;
         
@@ -16,8 +16,12 @@ const gateIoApi = (time, asset, callback) => {
         
         const timeInSec =  (unixDateTime - askedUnixTime)/1000;
         const timeInMin = timeInSec/60
-        const timeInHour = timeInMin/60
+        let timeInHour = timeInMin/60
         
+        if(timeInHour === -1) {
+            timeInHour = 0;
+        }
+
         return(timeInHour);
         
         }
