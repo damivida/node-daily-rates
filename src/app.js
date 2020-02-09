@@ -6,6 +6,8 @@ const poloniexApi = require('./utils/poloniex');
 const binanceApi = require('./utils/binance');
 const hitBtcApi = require('./utils/hitbtc');
 const gateIoApi = require('./utils/gateio');
+const bitfinexApi = require('./utils/bitfinex');
+const krakenApi = require('./utils/kraken');
 
 
 
@@ -185,6 +187,83 @@ app.get('/gateio', (req, res) => {
         });
     });
 });
+
+
+
+
+
+//GET BITFINEX API
+
+app.get('/bitfinex', (req, res) => {
+    if(!req.query.time || !req.query.asset1 || !req.query.asset2 ) {
+        return res.send({
+            error: 'Please provide correst time and asset'
+        })
+    }
+
+    bitfinexApi(req.query.time, req.query.asset1, req.query.asset2, (error, {open, high, low, close, volume} = {}) => {
+
+        if (error) {
+            return res.send({
+                error
+            });
+        }
+
+        let average = (open+high+low+close)/4;
+        average = average.toFixed(2);
+        average = parseFloat(average);
+
+        res.send({
+            exchange: 'Bitfinex',
+            unixTime: req.query.time,
+            pair: `${req.query.asset1}/${req.query.asset2}`,
+            open,
+            high,
+            low,
+            close,
+            volume,
+            average,
+            weightedAverage: 'Currently not in use for Bitfinex'
+        });
+    });
+});
+
+
+//GET KRAKEN API
+app.get('/kraken', (req, res) => {
+    if(!req.query.time || !req.query.asset1 || !req.query.asset2) {
+        return res.send({
+            error: 'Please provide correst time and asset'
+        });
+    }
+
+    krakenApi(req.query.time, req.query.asset1, req.query.asset2, (error, {open, high, low, close, volume} = {}) => {
+        if(error) {
+            return res.send({
+                error
+            })
+        }
+
+        let average = (open+high+low+close)/4;
+        average = average.toFixed(2);
+        average = parseFloat(average);
+
+        res.send({
+            exchange: 'Kraken',
+            unixTime: req.query.time,
+            pair:`${req.query.asset1}/${req.query.asset2}`,
+            open,
+            high,
+            low,
+            close,
+            volume,
+            average,
+            weightedAverage: 'Currently not in use for Bitfinex'
+        });
+    })
+});
+
+
 
 
 
