@@ -2,10 +2,10 @@ const request =  require('request');
 
 //CALLBACK FUNCTION (HITBTC API)
 
-const hitBtcApi = (time, asset, callback) => {
+const hitBtcApi = (time, asset1, asset2, callback) => {
 
 
-    let url = `https://api.hitbtc.com/api/2/public/candles/${asset}BTC?from=${time}&period=D1`;
+    let url = `https://api.hitbtc.com/api/2/public/candles/${asset1}${asset2}?from=${time}&period=D1`;
 
     //let url = `https://api.hitbtc.com/api/2/public/candles/ETNBTC?from=1579046400000&period=D1`;
 

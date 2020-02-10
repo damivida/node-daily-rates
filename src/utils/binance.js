@@ -3,9 +3,9 @@ const request =  require('request');
 
 //BINANCE API(CALLBACK BASED)
 
-const binanceApi = (time, asset, callback) => {
+const binanceApi = (time, asset1, asset2, callback) => {
 
-let url = `https://api.binance.com/api/v1/klines?symbol=${asset}BTC&interval=1d&startTime=${time}`;
+let url = `https://api.binance.com/api/v1/klines?symbol=${asset1}${asset2}&interval=1d&startTime=${time}`;
 //let url = `https://api.binance.com/api/v1/klines?symbol=XMRBTC&interval=1d&startTime=1578441600000`;
 
     request({url, json:true}, (error, {body}) => {

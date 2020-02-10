@@ -2,11 +2,11 @@ const request =  require('request');
 //const axios = require('axios');
 
 // CALLBACK FUNCTION (POLONIEX API)
-const poloniexApi = (time, asset,  callback) => {
+const poloniexApi = (time, asset1, asset2, callback) => {
 
   
     let timeInSec = time / 1000
-    let url = `https://poloniex.com/public?command=returnChartData&currencyPair=BTC_${asset}&start=${timeInSec}&period=86400`;
+    let url = `https://poloniex.com/public?command=returnChartData&currencyPair=${asset2}_${asset1}&start=${timeInSec}&period=86400`;
     //let url = `https://poloniex.com/public?command=returnChartData&currencyPair=BTC_XMR&start=${timeInSec}&period=86400`
     request({url, json:true}, (error, {body}) => {
         if(error) {

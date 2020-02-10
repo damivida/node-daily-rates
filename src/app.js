@@ -40,13 +40,13 @@ app.get('', (req, res) => {
 //GET POLONIEX API
 app.get('/poloniex', (req, res) => {
 
-    if (!req.query.time || !req.query.asset) {
+    if (!req.query.time || !req.query.asset1 || !req.query.asset2) {
         return res.send({
             error: 'Please provide correct time and asset'
         })
     }
 
-    poloniexApi(req.query.time, req.query.asset, (error, {wta, high, low, close, open, volume } = {}) => {
+    poloniexApi(req.query.time, req.query.asset1, req.query.asset2, (error, {wta, high, low, close, open, volume } = {}) => {
         if (error) {
             return res.send({
                 error: error
@@ -77,13 +77,13 @@ app.get('/poloniex', (req, res) => {
 //GET BINANCE API
 app.get('/binance', (req, res) => {
 
-    if (!req.query.time || !req.query.asset) {
+    if (!req.query.time || !req.query.asset1 || !req.query.asset2) {
         return res.send({
             error: 'Please provide correct time and asset'
         })
     }
 
-    binanceApi(req.query.time, req.query.asset, (error, { open, high, low, close, volume } = {}) => {
+    binanceApi(req.query.time, req.query.asset1, req.query.asset2, (error, { open, high, low, close, volume } = {}) => {
         if (error) {
             return res.send({
                 error: error
@@ -99,7 +99,7 @@ app.get('/binance', (req, res) => {
         res.send({
             exchange: 'Binance',
             unixTime: req.query.time,
-            pair: req.query.asset,
+            pair: `${req.query.asset1}/${req.query.asset2}`,
             open,
             high,
             low,
@@ -116,13 +116,13 @@ app.get('/binance', (req, res) => {
 //GET HITBTC API
 app.get('/hitbtc', (req, res) => {
 
-    if (!req.query.time || !req.query.asset) {
+    if (!req.query.time || !req.query.asset1 || !req.query.asset2) {
         return res.send({
             error: 'Please provide correct time and asset'
         })
     }
 
-    hitBtcApi(req.query.time, req.query.asset, (error, { open, high, low, close, volume } = {}) => {
+    hitBtcApi(req.query.time, req.query.asset1, req.query.asset2, (error, { open, high, low, close, volume } = {}) => {
         if (error) {
             return res.send({
                 error
@@ -137,7 +137,7 @@ app.get('/hitbtc', (req, res) => {
         res.send({
             exchange: 'HitBtc',
             unixTime: req.query.time,
-            pair: req.query.asset,
+            pair: `${req.query.asset1}/${req.query.asset2}`,
             open,
             high,
             low,
@@ -154,13 +154,13 @@ app.get('/hitbtc', (req, res) => {
 
 //GET GATEIO API
 app.get('/gateio', (req, res) => {
-    if (!req.query.time || !req.query.asset) {
+    if (!req.query.time || !req.query.asset1 || !req.query.asset2) {
         return res.send({
             error: 'Please provide correct time and asset'
         })
     }
 
-    gateIoApi(req.query.time, req.query.asset, (error, {open, high, low, close, volume } = {}) => {
+    gateIoApi(req.query.time, req.query.asset1, req.query.asset2, (error, {open, high, low, close, volume } = {}) => {
         if (error) {
             return res.send({
                 error
@@ -190,10 +190,7 @@ app.get('/gateio', (req, res) => {
 
 
 
-
-
 //GET BITFINEX API
-
 app.get('/bitfinex', (req, res) => {
     if(!req.query.time || !req.query.asset1 || !req.query.asset2 ) {
         return res.send({
@@ -258,25 +255,23 @@ app.get('/kraken', (req, res) => {
             close,
             volume,
             average,
-            weightedAverage: 'Currently not in use for Bitfinex'
+            weightedAverage: 'Currently not in use for Kraken'
         });
     })
 });
 
 
 
-
-
 //ALL EXCHANGES
 app.get('/exchangeAverage', (req, res) => {
-    if (!req.query.time || !req.query.asset) {
+    if (!req.query.time || !req.query.asset1 || !req.query.asset2) {
         return res.send({
             error: 'Please provide correct time and asset'
         })
     }
 
     //POLONIEX API
-    poloniexApi(req.query.time, req.query.asset, (error, data) => {
+    poloniexApi(req.query.time, req.query.asset1, req.query.asset2, (error, data) => {
         if (error) {
             return res.send({
                 error: error
@@ -294,7 +289,7 @@ app.get('/exchangeAverage', (req, res) => {
         polAvg = parseFloat(polAvg);
 
         //BINANCE API
-        binanceApi(req.query.time, req.query.asset, (error, data) => {
+        binanceApi(req.query.time, req.query.asset1, req.query.asset2, (error, data) => {
             if (error) {
                 return res.send({
                     error: error
@@ -312,7 +307,7 @@ app.get('/exchangeAverage', (req, res) => {
 
 
             //HIT BTC API
-            hitBtcApi(req.query.time, req.query.asset, (error, data) => {
+            hitBtcApi(req.query.time, req.query.asset1, req.query.asset2, (error, data) => {
                 if (error) {
                     return res.send({
                         error
@@ -330,7 +325,7 @@ app.get('/exchangeAverage', (req, res) => {
 
 
                 //GATEIO API
-                gateIoApi(req.query.time, req.query.asset, (error, data) => {
+                gateIoApi(req.query.time, req.query.asset1, req.query.asset2, (error, data) => {
                     if (error) {
                         return res.send({
                             error
@@ -355,7 +350,7 @@ app.get('/exchangeAverage', (req, res) => {
 
                     res.send({
                         unixTime: req.query.time,
-                        pair: req.query.asset,
+                        pair: `${req.query.asset1}/${req.query.asset2}`,
                         polAvg,
                         binAvg,
                         hitAvg,

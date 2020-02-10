@@ -16,9 +16,12 @@ let url = `https://api.kraken.com/0/public/OHLC?pair=${asset1}${asset2}&interval
 request({url, json:true}, (error, {body}) => {
     if(error) {
         callback('Unable to connect to location services!', undefined);
-    }else if(body.error.length !== 0 || body.result.XXBTZUSD[0][0] !== time/1000) {
-        callback('Unable to find rates', undefined);
+
+     } else if(body.error.length !== 0 ) {
+            callback('Unable to find rates', undefined);
     }else if(!body.result.XXBTZUSD) {
+        callback('Unable to find rates', undefined);
+    }else if(body.result.XXBTZUSD[0][0] !== time/1000) {
         callback('Currently only available is BTC price', undefined);
     }else {
 

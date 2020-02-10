@@ -68,6 +68,11 @@ button {
     font-size: smaller;
 }
 
+#exchangesToSellect {
+    color: grey;
+    font-size: smaller;
+}
+
 #message-1 {
     color: rgb(43, 46, 226);
     font-weight: bold;

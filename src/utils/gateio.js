@@ -1,6 +1,6 @@
 const request =  require('request');
 
-const gateIoApi = (time, asset, callback) => {
+const gateIoApi = (time, asset1, asset2, callback) => {
 
 
     const getHours = (askedUnixTime) => {
@@ -29,7 +29,7 @@ const gateIoApi = (time, asset, callback) => {
         
         const rangeHour = getHours(time);
 
-    let url = `https://data.gateio.life/api2/1/candlestick2/${asset}_btc?group_sec=86400&range_hour=${rangeHour}`;
+    let url = `https://data.gateio.life/api2/1/candlestick2/${asset1}_${asset2}?group_sec=86400&range_hour=${rangeHour}`;
  
 
         request({url, json:true}, (error, {body}) => {
