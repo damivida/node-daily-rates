@@ -257,32 +257,38 @@ app.get('/kraken', (req, res) => {
         });
     }
 
-    krakenApi(req.query.time, req.query.asset1, req.query.asset2, (error, {open, high, low, close, volume} = {}) => {
+    krakenApi.highLowClosePrice(req.query.time, req.query.asset1, req.query.asset2, (error, { high, low, close, volume} = {}) => {
         if(error) {
             return res.send({
                 error
             })
         }
 
-        /* let average = (open+high+low+close)/4;
-        average = average.toFixed(2);
-        average = parseFloat(average);
- */
 
-        let average = averageFuncToFixed8(high,low,close,open)
+        krakenApi.openPrice(req.query.time, req.query.asset1, req.query.asset2, (error, {open} = {}) => {
+            if(error) {
+                return res.send({
+                    error
+                })
+            }
 
-        res.send({
-            exchange: 'Kraken',
-            unixTime: req.query.time,
-            pair:`${req.query.asset1}/${req.query.asset2}`,
-            open: open.toFixed(2),
-            high: high.toFixed(2),
-            low: low.toFixed(2),
-            close: close.toFixed(2),
-            volume: volume.toFixed(10),
-            average,
-            weightedAverage: 'Currently not in use for Kraken'
-        });
+
+            let average = averageFuncToFixed8(high,low,close,open)
+
+            res.send({
+                exchange: 'Kraken',
+                unixTime: req.query.time,
+                pair:`${req.query.asset1}/${req.query.asset2}`,
+                open: open.toFixed(2),
+                high: high.toFixed(2),
+                low: low.toFixed(2),
+                close: close.toFixed(2),
+                volume: volume.toFixed(10),
+                average,
+                weightedAverage: 'Currently not in use for Kraken'
+            });
+        })  
+       
     })
 });
 
@@ -371,7 +377,6 @@ app.get('/exchangeAverage', (req, res) => {
                     let allExchangeAverage = (polAvg + binAvg + hitAvg + gateAvg) / 4;
                     let allExchangeAverageStr = allExchangeAverage.toFixed(8);
                     
-
                     res.send({
                         unixTime: req.query.time,
                         pair: `${req.query.asset1}/${req.query.asset2}`,
