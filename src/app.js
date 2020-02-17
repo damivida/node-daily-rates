@@ -8,6 +8,8 @@ const hitBtcApi = require('./utils/hitbtc');
 const gateIoApi = require('./utils/gateio');
 const bitfinexApi = require('./utils/bitfinex');
 const krakenApi = require('./utils/kraken');
+const averageFuncToFixed8 = require('./functions/averageFuncToFixed8')
+const averageFuncToFixed2 = require('./functions/averageFuncToFixed2')
 
 
 
@@ -53,22 +55,25 @@ app.get('/poloniex', (req, res) => {
             });
         }
 
-        let average = (high + low + close + open) / 4;
+      /*   let average = (high + low + close + open) / 4;
         average = parseFloat(average).toFixed(8);
 
-        console.log(average);
+        console.log(average); */
+
+
+        let average = averageFuncToFixed8(high,low,close,open)
 
         res.send({
             exchange: 'Poloniex',
             unixTime: req.query.time,
-            pair: req.query.asset,
-            open,
-            high,
-            low,
-            close,
-            volume,
+            pair: `${req.query.asset1}/${req.query.asset2}`,
+            open: open.toFixed(8),
+            high: high.toFixed(8),
+            low: low.toFixed(8),
+            close: close.toFixed(8),
+            volume: volume.toFixed(8),
             average,
-            weightedAverage: wta
+            weightedAverage: wta.toFixed(8)
         });
     });
 });
@@ -92,22 +97,22 @@ app.get('/binance', (req, res) => {
 
 
         //average calc    
-        let average = (open + high + low + close) / 4;
+        /* let average = (open + high + low + close) / 4;
         average = average.toFixed(8);
-        average = parseFloat(average);
+        average = parseFloat(average); */
+
+        let average = averageFuncToFixed8(high,low,close,open)
 
         res.send({
             exchange: 'Binance',
             unixTime: req.query.time,
             pair: `${req.query.asset1}/${req.query.asset2}`,
-            open,
-            high,
-            low,
-            close,
-            volume,
-            average,
-            weightedAverage: 'Currently not in use for Binance'
-
+            open: open.toFixed(8),
+            high: high.toFixed(8),
+            low: low.toFixed(8),
+            close: close.toFixed(8),
+            volume: volume.toFixed(8),
+            average
         });
     })
 });
@@ -130,21 +135,18 @@ app.get('/hitbtc', (req, res) => {
         }
 
         //average calc
-        let average = (open + high + low + close) / 4;
-        average = average.toFixed(8);
-        average = parseFloat(average);
+        let average = averageFuncToFixed8(high,low,close,open)
 
         res.send({
             exchange: 'HitBtc',
             unixTime: req.query.time,
             pair: `${req.query.asset1}/${req.query.asset2}`,
-            open,
-            high,
-            low,
-            close,
-            volume,
-            average,
-            weightedAverage: 'Currently not in use for HitBtc'
+            open: open.toFixed(10),
+            high: high.toFixed(10),
+            low: low.toFixed(10),
+            close: close.toFixed(10),
+            volume: volume.toFixed(10),
+            average
 
         });
     });
@@ -169,21 +171,19 @@ app.get('/gateio', (req, res) => {
 
 
         //average calc
-        let average = (open + high + low + close) / 4;
-        average = average.toFixed(8);
-        average = parseFloat(average);
+        let average = averageFuncToFixed8(high,low,close,open)
+
 
         res.send({
             exchange: 'Gate.io',
             unixTime: req.query.time,
-            pair: req.query.asset,
-            open,
-            high,
-            low,
-            close,
-            volume,
+            pair: `${req.query.asset1}/${req.query.asset2}`,
+            open: open.toFixed(8),
+            high: high.toFixed(8),
+            low: low.toFixed(8),
+            close: close.toFixed(8),
+            volume: volume.toFixed(10),
             average,
-            weightedAverage: 'Currently not in use for Gate.io'
         });
     });
 });
@@ -206,22 +206,45 @@ app.get('/bitfinex', (req, res) => {
             });
         }
 
-        let average = (open+high+low+close)/4;
-        average = average.toFixed(2);
-        average = parseFloat(average);
+      
 
-        res.send({
-            exchange: 'Bitfinex',
-            unixTime: req.query.time,
-            pair: `${req.query.asset1}/${req.query.asset2}`,
-            open,
-            high,
-            low,
-            close,
-            volume,
-            average,
-            weightedAverage: 'Currently not in use for Bitfinex'
-        });
+        if(req.query.asset1 === 'BTC') {
+
+        //average calc
+        let average = averageFuncToFixed2(high,low,close,open)
+
+
+            res.send({
+                exchange: 'Bitfinex',
+                unixTime: req.query.time,
+                pair: `${req.query.asset1}/${req.query.asset2}`,
+                open: open.toFixed(2),
+                high: high.toFixed(2),
+                low: low.toFixed(2),
+                close: close.toFixed(2), 
+                volume: volume.toFixed(8),
+                average 
+            });
+
+        }else {
+
+            let average = averageFuncToFixed8(high,low,close,open)
+
+
+            res.send({
+                exchange: 'Bitfinex',
+                unixTime: req.query.time,
+                pair: `${req.query.asset1}/${req.query.asset2}`,
+                open: open.toFixed(8),
+                high: high.toFixed(8),
+                low: low.toFixed(8),
+                close: close.toFixed(8), 
+                volume: volume.toFixed(8),
+                average 
+            });
+
+        }
+       
     });
 });
 
@@ -241,19 +264,22 @@ app.get('/kraken', (req, res) => {
             })
         }
 
-        let average = (open+high+low+close)/4;
+        /* let average = (open+high+low+close)/4;
         average = average.toFixed(2);
         average = parseFloat(average);
+ */
+
+        let average = averageFuncToFixed8(high,low,close,open)
 
         res.send({
             exchange: 'Kraken',
             unixTime: req.query.time,
             pair:`${req.query.asset1}/${req.query.asset2}`,
-            open,
-            high,
-            low,
-            close,
-            volume,
+            open: open.toFixed(2),
+            high: high.toFixed(2),
+            low: low.toFixed(2),
+            close: close.toFixed(2),
+            volume: volume.toFixed(10),
             average,
             weightedAverage: 'Currently not in use for Kraken'
         });
@@ -285,8 +311,8 @@ app.get('/exchangeAverage', (req, res) => {
 
         //avg calc
         let polAvg = (polHigh + polLow + polClose + polOpen) / 4
-        polAvg = polAvg.toFixed(8);
-        polAvg = parseFloat(polAvg);
+        let polAvgStr = polAvg.toFixed(8);
+        
 
         //BINANCE API
         binanceApi(req.query.time, req.query.asset1, req.query.asset2, (error, data) => {
@@ -302,8 +328,8 @@ app.get('/exchangeAverage', (req, res) => {
             let binClose = data.close;
 
             let binAvg = (binOpen + binHigh + binLow + binClose) / 4;
-            binAvg = binAvg.toFixed(8);
-            binAvg = parseFloat(binAvg);
+            let binAvgStr = binAvg.toFixed(8);
+          
 
 
             //HIT BTC API
@@ -320,8 +346,8 @@ app.get('/exchangeAverage', (req, res) => {
                 let hitClose = data.close;
 
                 let hitAvg = (hitOpen + hitHigh + hitLow + hitClose) / 4;
-                hitAvg = hitAvg.toFixed(8);
-                hitAvg = parseFloat(hitAvg);
+                let hitAvgStr = hitAvg.toFixed(8);
+                
 
 
                 //GATEIO API
@@ -338,24 +364,22 @@ app.get('/exchangeAverage', (req, res) => {
                     let gateClose = data.close;
 
                     let gateAvg = (gateOpen + gateHigh + gateLow + gateClose) / 4;
-                    gateAvg = gateAvg.toFixed(8);
-                    gateAvg = parseFloat(gateAvg);
-
+                    let gateAvgStr = gateAvg.toFixed(8);
+                   
 
                     //ALL EXCHANGE AVERAGE
                     let allExchangeAverage = (polAvg + binAvg + hitAvg + gateAvg) / 4;
-                    allExchangeAverage = binAvg.toFixed(8);
-                    allExchangeAverage = parseFloat(allExchangeAverage);
+                    let allExchangeAverageStr = allExchangeAverage.toFixed(8);
                     
 
                     res.send({
                         unixTime: req.query.time,
                         pair: `${req.query.asset1}/${req.query.asset2}`,
-                        polAvg,
-                        binAvg,
-                        hitAvg,
-                        gateAvg,
-                        allExchangeAverage
+                        polAvg:polAvgStr,
+                        binAvg:binAvgStr,
+                        hitAvg:hitAvgStr,
+                        gateAvg:gateAvgStr,
+                        allMarketsAvg:allExchangeAverageStr
                    })
                 });
             });

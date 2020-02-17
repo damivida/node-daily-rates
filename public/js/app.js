@@ -57,7 +57,7 @@ dailyRatesForm.addEventListener('submit', (e) => {
         exchangesAvailable.textContent = '';
     } else if (exchange === 'exchangeAverage') {
         let assetsAllEx = document.querySelector('#assetsToCollect');
-        assetsAllEx.textContent = 'Pairs available: DOGE_BTC, ETH_BTC, LTC_BTC, XMR_BTC, ZEC_BTC, ETC_BTC, EOS_BTC';
+        assetsAllEx.textContent = 'Pairs available: DOGE_BTC, DASH_BTC, ETH_BTC, LTC_BTC, XMR_BTC, ZEC_BTC, ETC_BTC, EOS_BTC';
         exchangesAvailable.textContent = 'Markets available: Poloniex, Binance, HitBtc, Gate.io';
     }
 
@@ -110,7 +110,12 @@ dailyRatesForm.addEventListener('submit', (e) => {
                 messageEight.textContent = `Close: ${data.close}`;
                 messageNine.textContent = `Volume: ${data.volume}`;
                 messageTen.textContent = `Average: ${data.average}`;
-                messageEleven.textContent = `Weighted Average: ${data.weightedAverage}`;
+                messageEleven.textContent = '';
+                if(exchange === 'poloniex') {
+                    messageEleven.textContent = `Weighted Average: ${data.weightedAverage}`;
+                }
+
+                
             } else {
 
                 messageOne.textContent = 'All Markets Average:';
@@ -121,7 +126,7 @@ dailyRatesForm.addEventListener('submit', (e) => {
                 messageSix.textContent = `Binance: ${data.binAvg}`;
                 messageSeven.textContent = `HitBtc: ${data.hitAvg}`;
                 messageEight.textContent = `Gate.io: ${data.gateAvg}`;
-                messageEleven.textContent = `All Markets Avg: ${data.allExchangeAverage}`;
+                messageEleven.textContent = `All Markets Avg: ${data.allMarketsAvg}`;
                 messageNine.textContent = '';
                 messageTen.textContent = '';
             }
