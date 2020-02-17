@@ -264,7 +264,6 @@ app.get('/kraken', (req, res) => {
             })
         }
 
-
         krakenApi.openPrice(req.query.time, req.query.asset1, req.query.asset2, (error, {open} = {}) => {
             if(error) {
                 return res.send({
@@ -272,8 +271,7 @@ app.get('/kraken', (req, res) => {
                 })
             }
 
-
-            let average = averageFuncToFixed8(high,low,close,open)
+            let average = averageFuncToFixed2(high,low,close,open)
 
             res.send({
                 exchange: 'Kraken',
