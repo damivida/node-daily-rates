@@ -95,12 +95,6 @@ app.get('/binance', (req, res) => {
             });
         }
 
-
-        //average calc    
-        /* let average = (open + high + low + close) / 4;
-        average = average.toFixed(8);
-        average = parseFloat(average); */
-
         let average = averageFuncToFixed8(high,low,close,open)
 
         res.send({
@@ -200,15 +194,13 @@ app.get('/bitfinex', (req, res) => {
 
     bitfinexApi(req.query.time, req.query.asset1, req.query.asset2, (error, {open, high, low, close, volume} = {}) => {
 
-        if (error) {
-            return res.send({
-                error
-            });
-        }
-
-      
-
         if(req.query.asset1 === 'BTC') {
+
+            if (error) {
+                return res.send({
+                    error
+                });
+            }
 
         //average calc
         let average = averageFuncToFixed2(high,low,close,open)
@@ -225,8 +217,14 @@ app.get('/bitfinex', (req, res) => {
                 volume: volume.toFixed(8),
                 average 
             });
+        } else {
 
-        }else {
+                
+            if (error) {
+                return res.send({
+                    error
+                });
+            }
 
             let average = averageFuncToFixed8(high,low,close,open)
 
@@ -242,9 +240,8 @@ app.get('/bitfinex', (req, res) => {
                 volume: volume.toFixed(8),
                 average 
             });
-
         }
-       
+      
     });
 });
 

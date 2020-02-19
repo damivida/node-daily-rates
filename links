@@ -14,3 +14,11 @@ https://api.hitbtc.com/api/2/public/candles/ETNBTC?from=1579046400000&period=D1
 
 Gateio Api
 https://data.gateio.life/api2/1/candlestick2/beam_btc?group_sec=86400&range_hour=240
+
+Bitxinex Api
+https://api-pub.bitfinex.com/v2/candles/trade:1D:tBTCEUR/hist?&start=1581120000000&sort=1
+
+Kraken Api
+https://api.kraken.com/0/public/OHLC?pair=XBTUSD&interval=1440&since=1581897600
+https://api.kraken.com/0/public/Trades?pair=XBTUSD&since=1581984000000000000
+
