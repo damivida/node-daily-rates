@@ -28,7 +28,6 @@ console.log(pair)
 
     if(error) {
         callback('Unable to connect to location services!', undefined);
-
      } else if(body.error.length !== 0 ) {
             callback('Unable to find rates', undefined);
     }else if(data[pair][0][0] !== time/1000) {

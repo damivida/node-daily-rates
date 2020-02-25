@@ -12,11 +12,9 @@ const bitfinexApi = (time, asset1, asset2, callback) => {
             callback('Unable to connect to location sevices', undefined);
         }else if(body[error]) {
             callback('Unable to find rates', undefined);
-            console.log(error)
         }else if (body.length === 0) {
             callback('Unable to find rates', undefined);
         }else {
-            //console.log(body);
             callback(undefined, {
                 open:parseFloat(body[0][1]),
                 high:parseFloat(body[0][3]),

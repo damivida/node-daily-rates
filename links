@@ -22,3 +22,10 @@ Kraken Api
 https://api.kraken.com/0/public/OHLC?pair=XBTUSD&interval=1440&since=1581897600
 https://api.kraken.com/0/public/Trades?pair=XBTUSD&since=1581984000000000000
 
+Coinbase Pro Api
+
+https://api.pro.coinbase.com/products/BTC-EUR/candles?start=2020-02-03T00:00:00.000Z&end=2020-02-19T19:31:31.169Z&granularity=86400
+
+doc
+https://docs.pro.coinbase.com/#get-trades
+

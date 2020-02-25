@@ -8,6 +8,7 @@ const hitBtcApi = require('./utils/hitbtc');
 const gateIoApi = require('./utils/gateio');
 const bitfinexApi = require('./utils/bitfinex');
 const krakenApi = require('./utils/kraken');
+const coinBaseProApi = require('./utils/coinBasePro');
 const averageFuncToFixed8 = require('./functions/averageFuncToFixed8')
 const averageFuncToFixed2 = require('./functions/averageFuncToFixed2')
 
@@ -88,27 +89,56 @@ app.get('/binance', (req, res) => {
         })
     }
 
-    binanceApi(req.query.time, req.query.asset1, req.query.asset2, (error, { open, high, low, close, volume } = {}) => {
-        if (error) {
-            return res.send({
-                error: error
+
+    if(req.query.asset1 === 'BTC') {
+
+        binanceApi(req.query.time, req.query.asset1, req.query.asset2, (error, { open, high, low, close, volume } = {}) => {
+            if (error) {
+                return res.send({
+                    error: error
+                });
+            }
+    
+            let average = averageFuncToFixed2(high,low,close,open)
+    
+            res.send({
+                exchange: 'Binance',
+                unixTime: req.query.time,
+                pair: `${req.query.asset1}/${req.query.asset2}`,
+                open: open.toFixed(2),
+                high: high.toFixed(2),
+                low: low.toFixed(2),
+                close: close.toFixed(2),
+                volume: volume.toFixed(8),
+                average
             });
-        }
+        })
 
-        let average = averageFuncToFixed8(high,low,close,open)
+    }else {
+        binanceApi(req.query.time, req.query.asset1, req.query.asset2, (error, { open, high, low, close, volume } = {}) => {
+            if (error) {
+                return res.send({
+                    error: error
+                });
+            }
+    
+            let average = averageFuncToFixed8(high,low,close,open)
+    
+            res.send({
+                exchange: 'Binance',
+                unixTime: req.query.time,
+                pair: `${req.query.asset1}/${req.query.asset2}`,
+                open: open.toFixed(8),
+                high: high.toFixed(8),
+                low: low.toFixed(8),
+                close: close.toFixed(8),
+                volume: volume.toFixed(8),
+                average
+            });
+        })
+    }
 
-        res.send({
-            exchange: 'Binance',
-            unixTime: req.query.time,
-            pair: `${req.query.asset1}/${req.query.asset2}`,
-            open: open.toFixed(8),
-            high: high.toFixed(8),
-            low: low.toFixed(8),
-            close: close.toFixed(8),
-            volume: volume.toFixed(8),
-            average
-        });
-    })
+
 });
 
 
@@ -278,13 +308,47 @@ app.get('/kraken', (req, res) => {
                 high: high.toFixed(2),
                 low: low.toFixed(2),
                 close: close.toFixed(2),
-                volume: volume.toFixed(10),
+                volume: volume.toFixed(8),
                 average,
                 weightedAverage: 'Currently not in use for Kraken'
             });
-        })  
-       
+        })   
     })
+});
+
+
+//COINBASE PRO
+app.get('/coinbasepro', (req, res) => {
+    if (!req.query.time || !req.query.asset1 || !req.query.asset2) {
+        return res.send({
+            error: 'Please provide correct time and asset'
+        })
+    }
+
+    coinBaseProApi(req.query.time, req.query.asset1, req.query.asset2, (error, {open, high, low, close, volume } = {}) => {
+        if (error) {
+            return res.send({
+                error
+            });
+        }
+
+
+        //average calc
+        let average = averageFuncToFixed2(high,low,close,open)
+
+
+        res.send({
+            exchange: 'Gate.io',
+            unixTime: req.query.time,
+            pair: `${req.query.asset1}/${req.query.asset2}`,
+            open: open.toFixed(2),
+            high: high.toFixed(2),
+            low: low.toFixed(2),
+            close: close.toFixed(2),
+            volume: volume.toFixed(8),
+            average,
+        });
+    });
 });
 
 

@@ -33,7 +33,7 @@ dailyRatesForm.addEventListener('submit', (e) => {
 
     } else if (exchange === 'binance') {
         let assetsOnBinance = document.querySelector('#assetsToCollect');
-        assetsOnBinance.textContent = 'Daily rates to collect: BTG_BTC, EOS_BTC, BTC_USDT';
+        assetsOnBinance.textContent = 'Daily rates to collect: BTG_BTC, EOS_BTC, BTC_USDT, BTC_EUR';
         exchangesAvailable.textContent = '';
 
     } else if (exchange === 'hitbtc') {
@@ -48,12 +48,12 @@ dailyRatesForm.addEventListener('submit', (e) => {
 
     } else if (exchange === 'bitfinex') {
         let assetsOnBitfinex = document.querySelector('#assetsToCollect');
-        assetsOnBitfinex.textContent = 'Daily rates to collect: BTC_USD';
+        assetsOnBitfinex.textContent = 'Daily rates to collect: BTC_USD, BTC_EUR';
         exchangesAvailable.textContent = '';
 
     } else if (exchange === 'kraken') {
         let assetsOnKraken = document.querySelector('#assetsToCollect');
-        assetsOnKraken.textContent = 'Daily rates to collect: BTC_USD';
+        assetsOnKraken.textContent = 'Daily rates to collect: BTC_USD, BTC_EUR';
         exchangesAvailable.textContent = '';
     } else if (exchange === 'exchangeAverage') {
         let assetsAllEx = document.querySelector('#assetsToCollect');
@@ -71,6 +71,8 @@ dailyRatesForm.addEventListener('submit', (e) => {
         const unixDateTime = Date.parse(dateTime)
         return unixDateTime;
     }
+
+    console.log(time);
     const startDate = unixTime(time);
 
     messageOne.textContent = "Getting data...";
