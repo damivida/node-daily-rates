@@ -65,11 +65,23 @@ dailyRatesForm.addEventListener('submit', (e) => {
     //convert UTC time in unix time in millisecounds
     const unixTime = (startDate) => {
 
-        const starTime = '01:00:00';
-        const dateTime = startDate + ' ' + starTime;
+        //geting UTC time offset
+        let date = new Date();
+        let n = date.getTimezoneOffset();
+        let hourOffSet = (n/60)*-1;
+
+        //adjusting time
+        let timeRange = [0,0, ':', 0,0, ':', 0,0];
+        timeRange[1] = hourOffSet;
+        let adjustedTime = timeRange.join('');
+
+        //const starTime = '01:00:00';
+        const dateTime = startDate + ' ' + adjustedTime;
 
         const unixDateTime = Date.parse(dateTime)
+        
         return unixDateTime;
+
     }
 
     console.log(time);

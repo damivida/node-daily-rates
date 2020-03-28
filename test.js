@@ -1,9 +1,26 @@
 
-let num = 0.00034544999999999997;
-//let roundedNum = (Math.round( num * 100 ) / 100).toFixed(5);
+let date = new Date();
+let n = date.getTimezoneOffset();
+let hourOffSet = (n/60)*-1;
 
-let roundedNum = parseFloat(num).toFixed(8);
+//console.log(hourOffSet)
+//let offSetConve = dateOfSet *-1;
 
-console.log(roundedNum);
+let timeRange = [0,0, ':', 0,0, ':', 0,0];
+
+timeRange[1] = hourOffSet;
+let adjustedTime = timeRange.join('');
+
+console.log(adjustedTime);
+
+let startDate = '2020-03-27';
+//let startTime = '01:00:00';
+const dateTime = startDate + ' ' + adjustedTime;
+
+let unixTime = Date.parse(dateTime)
+
+console.log(unixTime);
+
+
 
 
