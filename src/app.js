@@ -64,6 +64,8 @@ app.get('/poloniex', (req, res) => {
 
         let average = averageFuncToFixed8(high,low,close,open)
 
+        console.log(average);
+
         res.send({
             exchange: 'Poloniex',
             unixTime: req.query.time,
