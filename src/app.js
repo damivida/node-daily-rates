@@ -1137,7 +1137,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
   
     const scrapingBTC = async () => {
-      const browser = await puppeteer.launch({ headless: false, args: ["--no-sandbox"] });
+      const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox"] });
       const page = await browser.newPage();
   
   
@@ -1314,7 +1314,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
   
     const scrapingBCH = async () => {
-      const browser = await puppeteer.launch({ headless: false, args: ["--no-sandbox"] });
+      const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox"] });
       const page = await browser.newPage();
   
   
