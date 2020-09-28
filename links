@@ -21,6 +21,8 @@ https://api-pub.bitfinex.com/v2/candles/trade:1D:tBTCEUR/hist?&start=15811200000
 Kraken Api
 https://api.kraken.com/0/public/OHLC?pair=XBTUSD&interval=1440&since=1581897600
 https://api.kraken.com/0/public/Trades?pair=XBTUSD&since=1581984000000000000
+https://support.kraken.com/hc/en-us/articles/201893658-Currency-pairs-available-for-trading-on-Kraken
+
 
 Coinbase Pro Api
 

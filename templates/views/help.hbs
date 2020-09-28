@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{!-- <!DOCTYPE html>
 
 <html>
 
@@ -15,6 +15,97 @@
     </div>
     
        {{>footer}}
+</body>
+
+</html> --}}
+
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Profitability</title>
+    <link rel="stylesheet" href="/css/styless.css">
+    
+</head>
+
+<body>
+
+     <div class="main-content">
+        {{>header}}
+    
+    <form action="">
+
+        <select name= "exchange" id="exchange">
+            <option value = 'poloniex'>Poloniex</option>
+            <option value = 'binance'>Binance</option>
+            <option value = 'hitbtc'>HitBtc</option>
+            <option value = 'gateio'>Gate.io</option>
+            <option value = 'bitfinex'>Bitfinex</option>
+            <option value = 'kraken'>Kraken</option>
+
+            <option value='exchangeAverage'>All Markets Average</option>
+           
+        </select> 
+
+
+        <select name= "asset" id="asset">   
+            <option value = 'DOGE'>DOGE</option>
+            <option value = 'DASH'>DASH</option>
+            <option value = 'ETH'>ETH</option>
+            <option value = 'REP'>REP</option>
+            <option value = 'LTC'>LTC</option>
+            <option value = 'XMR'>XMR</option>
+            <option value = 'ZEC'>ZEC</option>
+            <option value = 'ETC'>ETC</option>
+            <option value = 'DGB'>DGB</option> 
+            <option value = 'BCHABC'>BCH</option>
+            <option value = 'BTG'>BTG</option>
+            <option value = 'ETN'>ETN</option>
+            <option value = 'XMC'>XMC</option>
+            <option value = 'EOS'>EOS</option>
+            <option value = 'BEAM'>BEAM</option>
+            <option value = 'BTC'>BTC</option>       
+        </select>
+
+        <select name= "asset2" id="asset2">
+            <option value = 'BTC'>BTC</option>
+            <option value = 'USD'>USD</option>
+            <option value = 'USDT'>USDT</option>
+            <option value = 'EUR'>EUR</option>
+        </select>
+
+
+        <input type="date" id= "time">
+           <button>Search</button>
+
+
+    <p id= "assetsToCollect"></p>
+    <p id= "exchangesToSellect"></p><br/>
+
+    <p id="message-1"></p>
+    <p id="message-2"></p>
+    <p id="message-3"></p>
+    <p id="message-4"></p>
+    <p id="message-5"></p>
+    <p id="message-6"></p>
+    <p id="message-7"></p>
+    <p id="message-8"></p>
+    <p id="message-9"></p>
+    <p id="message-10"></p>
+    <p id="message-11"></p>
+ 
+
+    </form>
+
+
+    
+
+    </div>
+    
+    {{>footer}}
+    <script src="/js/app.js"></script>
 </body>
 
 </html>
