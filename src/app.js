@@ -633,7 +633,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
   
     const scrapingETH = async () => {
-      const browser = await puppeteer.launch({ headless: true });
+      const browser = await puppeteer.launch({ headless: true , args: ["--no-sandbox"]});
       const page = await browser.newPage();
   
   
@@ -795,7 +795,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
   
     const etcScraping = async () => {
-      const browser = await puppeteer.launch({ headless: true });
+      const browser = await puppeteer.launch({ headless: true , args: ["--no-sandbox"] });
       const page = await browser.newPage();
   
       //profitability calc
@@ -952,7 +952,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
     //--------------------------------------------MAIN
     const ltcScraping = async () => {
-      const browser = await puppeteer.launch({ headless: true });
+      const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox"] });
       const page = await browser.newPage();
   
       //---------------profitability calc
@@ -1135,7 +1135,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
   
     const scrapingBTC = async () => {
-      const browser = await puppeteer.launch({ headless: true });
+      const browser = await puppeteer.launch({ headless: false, args: ["--no-sandbox"] });
       const page = await browser.newPage();
   
   
@@ -1312,7 +1312,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
   
     const scrapingBCH = async () => {
-      const browser = await puppeteer.launch({ headless: true });
+      const browser = await puppeteer.launch({ headless: false, args: ["--no-sandbox"] });
       const page = await browser.newPage();
   
   
@@ -1510,7 +1510,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
   
     const scrapingDASH = async () => {
-      const browser = await puppeteer.launch({ headless: true });
+      const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox"] });
       const page = await browser.newPage();
   
       //profitability calc
@@ -1650,7 +1650,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
       try {
   
-      const browser = await puppeteer.launch({headless:true});
+      const browser = await puppeteer.launch({headless:true, args: ["--no-sandbox"]});
       const page = await browser.newPage(); 
   
         await page.setDefaultNavigationTimeout(0);
@@ -1704,7 +1704,7 @@ app.get('/miningPools/ETH', (req, res) => {
   }  
   
     const scrapingZEC = async () => {
-      const browser = await puppeteer.launch({ headless: true });
+      const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox"] });
       const page = await browser.newPage();
   
       //profitability calc
@@ -1885,7 +1885,7 @@ app.get('/miningPools/ETH', (req, res) => {
     }  
     
       const scrapingXMR = async () => {
-        const browser = await puppeteer.launch({ headless: true });
+        const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox"] });
         const page = await browser.newPage();
     
         //profitability calc
@@ -2034,7 +2034,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
       try {
     
-        const browser = await puppeteer.launch({headless:true});
+        const browser = await puppeteer.launch({headless:true, args: ["--no-sandbox"]});
         const page = await browser.newPage(); 
     
         await page.setDefaultNavigationTimeout(0);
@@ -2056,7 +2056,7 @@ app.get('/miningPools/ETH', (req, res) => {
     }
     
       const scrapingBEAM = async () => {
-        const browser = await puppeteer.launch({ headless: true });
+        const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox"] });
         const page = await browser.newPage();
     
         //profitability calc
