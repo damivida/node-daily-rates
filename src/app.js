@@ -48,7 +48,6 @@ app.get('', (req, res) => {
 app.get('/profitability', (req, res) => {
     res.render('profitability', {
         title: 'Profitability',
-        message: 'Profitability page is currently under construction. To check JSON response from mining pools API-s you can vist: , and to check JSON response from web crawler you can visit:',
         name: 'Damir'
     });
 });
