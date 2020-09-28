@@ -1652,8 +1652,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
       try {
   
-      const browser = await puppeteer.launch({headless:true, args: ["--no-sandbox"]});
-      const page = await browser.newPage(); 
+     
   
         await page.setDefaultNavigationTimeout(0);
         await page.goto('https://www.coinotron.com/app?action=statistics');
