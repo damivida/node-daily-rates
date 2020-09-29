@@ -9,7 +9,28 @@
 
 <body>
     <div class="main-content">
-       {{>header}}
+        {{>header}}
+
+       <form action = ""> 
+           <select name= "api" id="api">
+            <option>--Coin--</option>
+            <option value = 'eth'>ETH</option>
+            <option value = 'etc'>ETC</option>
+           </select> 
+
+            <select name= "crawler" id="crawler">
+            <option>--Method--</option>    
+            <option value = 'api'>API</option>
+            <option value = 'crawler'>CRAWLER</option>
+           </select>
+
+            <button>Search</button>
+ 
+
+       </form> 
+
+
+       
        <p>Profitability page is currently under construction.</p> 
        To check JSON response from mining pools API-s you can vist: <a href="https://daily-rates-boost.herokuapp.com/miningPools/eth" target="_blank">link</a></br>
        To check JSON response from web crawler you can visit: <a href="https://daily-rates-boost.herokuapp.com/miningPools/eth/crawler" target="_blank">link</a>
