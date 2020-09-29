@@ -1652,8 +1652,6 @@ app.get('/miningPools/ETH', (req, res) => {
   
       try {
   
-     
-  
         await page.setDefaultNavigationTimeout(0);
         await page.goto('https://www.coinotron.com/app?action=statistics');
         const html = await page.content();
