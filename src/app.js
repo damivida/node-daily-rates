@@ -488,7 +488,7 @@ app.get('/exchangeAverage', (req, res) => {
 
 //***************************************** ETH mining pools **************************************************
 
-app.get('/miningPools/ETH', (req, res) => {
+app.get('/miningPools/ETH/api', (req, res) => {
 
     const whatToMineUrl = `https://whattomine.com/coins/151.json?hr=1&p=0.0&fee=0&cost=0&hcost=0.07`;
     const viaBtcUrl = `https://www.viabtc.com/res/tools/calculator?coin=ETH`;
@@ -685,7 +685,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
   //*****************************************************ETC mining pools ********************************************
   
-  app.get('/miningPools/ETC', (req, res) => {
+  app.get('/miningPools/ETC/api', (req, res) => {
   
     const whatToMineUrl = `https://whattomine.com/coins/162.json?hr=1&p=0.0&fee=0&cost=0&hcost=0.07`;
     const viaBtcUrl = `https://www.viabtc.com/res/tools/calculator?coin=ETC`;
@@ -836,7 +836,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
   //*******************************************************  LTC mining pools ***************************************
   
-  app.get('/miningPools/LTC', (req, res) => {
+  app.get('/miningPools/LTC/api', (req, res) => {
   
     const whatToMineUrl = `https://whattomine.com/coins/4.json?hr=1&p=0.0&fee=0&cost=0&hcost=0.07`;
     const viaBtcUrl = `https://www.viabtc.com/res/tools/calculator?coin=LTC`;
@@ -991,7 +991,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
   //**********************************************BTC mining pools**********************************
   
-  app.get('/miningPools/BTC', (req, res) => {
+  app.get('/miningPools/BTC/api', (req, res) => {
   
     const whatToMineUrl = `https://whattomine.com/coins/1.json?hr=1000&p=0.0&fee=0&cost=0&hcost=0.07`;
     const viaBtcUrl = `https://www.viabtc.com/res/tools/calculator?coin=BTC`;
@@ -1194,7 +1194,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
   //**********************************************BCH mining pools**********************************
   
-  app.get('/miningPools/BCH', (req, res) => {
+  app.get('/miningPools/BCH/api', (req, res) => {
   
     const whatToMineUrl = `https://whattomine.com/coins/193.json?hr=1000&p=0.0&fee=0&cost=0&hcost=0.07`;
     const viaBtcUrl = `https://www.viabtc.com/res/tools/calculator?coin=BCH`;
@@ -1365,7 +1365,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
   //**********************************************DASH mining pools**********************************
   
-  app.get('/miningPools/DASH', (req, res) => {
+  app.get('/miningPools/DASH/api', (req, res) => {
   
     const whatToMineUrl = `https://whattomine.com/coins/34.json?hr=1000&p=0.0&fee=0&cost=0&hcost=0.07`;
     const viaBtcUrl = `https://www.viabtc.com/res/tools/calculator?coin=DASH`;
@@ -1557,7 +1557,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
   //**********************************************ZEC mining pools**********************************
   
-  app.get('/miningPools/ZEC', (req, res) => {
+  app.get('/miningPools/ZEC/api', (req, res) => {
   
     const whatToMineUrl = `https://whattomine.com/coins/166.json?hr=1000&p=0.0&fee=0&cost=0&hcost=0.07`;
     const viaBtcUrl = `https://www.viabtc.com/res/tools/calculator?coin=ZEC`;
@@ -1747,7 +1747,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
   
   //********************************************** XMR mining pools**********************************
-  app.get('/miningPools/XMR', (req, res) => {
+  app.get('/miningPools/XMR/api', (req, res) => {
   
     const whatToMineUrl = `https://whattomine.com/coins/101.json?hr=1000&p=0.0&fee=0&cost=0&hcost=0.07`;
     const viaBtcUrl = `https://www.viabtc.com/res/tools/calculator?coin=XMR`;
@@ -1929,7 +1929,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
   
   //********************************************** XMC mining pools**********************************
-  app.get('/miningPools/XMC', (req, res) => {
+  app.get('/miningPools/XMC/api', (req, res) => {
   
     const coinCalculatorsUrl = 'https://www.coincalculators.io/api?name=monero-classic&hashrate=1&power=0&poolfee=0&powercost=0&difficultytime=24';
     const fairHashUrl = 'https://xmc.fairhash.org/api/stats?update';
@@ -1981,7 +1981,7 @@ app.get('/miningPools/ETH', (req, res) => {
   
   
   //********************************************** BEAM mining pools**********************************
-  app.get('/miningPools/BEAM', (req, res) => {
+  app.get('/miningPools/BEAM/api', (req, res) => {
   
     const whatToMineUrl = `https://whattomine.com/coins/294.json?hr=1&p=0.0&fee=0&cost=0&hcost=0.0`
     const coinCalculatorsUrl = 'https://www.coincalculators.io/api?name=beam&hashrate=1&power=0&poolfee=0&powercost=0&difficultytime=24';

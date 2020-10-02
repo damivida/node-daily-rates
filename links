@@ -31,3 +31,6 @@ https://api.pro.coinbase.com/products/BTC-EUR/candles?start=2020-02-03T00:00:00.
 doc
 https://docs.pro.coinbase.com/#get-trades
 
+
+
+nodemon src/app.js -e js,hbs

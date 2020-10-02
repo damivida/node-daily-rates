@@ -12,13 +12,21 @@
         {{>header}}
 
        <form action = ""> 
-           <select name= "api" id="api">
+           <select name= "coin" id="coin">
             <option>--Coin--</option>
             <option value = 'eth'>ETH</option>
             <option value = 'etc'>ETC</option>
+            <option value = 'ltc'>LTC</option>
+            <option value = 'btc'>BTC</option>
+            <option value = 'bch'>BCH</option>
+            <option value = 'dash'>DASH</option>
+            <option value = 'zec'>ZEC</option>
+            <option value = 'xmr'>XMR</option>
+            <option value = 'xmc'>XMC</option>
+            <option value = 'beam'>BEAM</option>
            </select> 
 
-            <select name= "crawler" id="crawler">
+            <select name= "method " id="method">
             <option>--Method--</option>    
             <option value = 'api'>API</option>
             <option value = 'crawler'>CRAWLER</option>
@@ -29,14 +37,34 @@
 
        </form> 
 
+<div class="api">
+    <p id="profApiMessage1"></p>
+    <p id="profApiMessage2"></p>
+    <p id="profApiMessage3"></p>
+    <p id="profApiMessage4"></p>
+</div>
 
+{{!-- <div class="crawler">
+     <p id="profCrawlerMessage-1">Crawler 1</p>
+     <p id="profCrawlerMessage-2">Crawler 2</p>
+     <p id="profCrawlerMessage-2">Crawler 3</p>
+     <p id="profCrawlerMessage-2">Crawler 4</p>
+</div> --}}
+    {{!--  <p id="profMessage-1">Test 1</p> 
+     <p id="profMessage-2">Test 2</p>
+     <p id="profMessage-3">Test 3</p>
+     <p id="profMessage-4">Test 4</p> --}}
+
+   
+    
        
-       <p>Profitability page is currently under construction.</p> 
+       {{!-- <p>Profitability page is currently under construction.</p> 
        To check JSON response from mining pools API-s you can vist: <a href="https://daily-rates-boost.herokuapp.com/miningPools/eth" target="_blank">link</a></br>
-       To check JSON response from web crawler you can visit: <a href="https://daily-rates-boost.herokuapp.com/miningPools/eth/crawler" target="_blank">link</a>
+       To check JSON response from web crawler you can visit: <a href="https://daily-rates-boost.herokuapp.com/miningPools/eth/crawler" target="_blank">link</a> --}}
     </div>
     
        {{>footer}}
+       <script src="/js/profitability.js"></script>
 </body>
 
 </html>
