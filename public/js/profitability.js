@@ -53,7 +53,7 @@ profForm.addEventListener('submit', (e) => {
             }
 
             console.log(data)
-            profMessage1.textContent = 'App is under construction, data is visible in console.';
+            profMessage1.textContent = 'UI is under construction, data is visible in console.';
 
         })
     })
