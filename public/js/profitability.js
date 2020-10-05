@@ -1,16 +1,17 @@
-
-
 const profForm = document.querySelector('form');
 const profApiMessage1 = document.querySelector('#profApiMessage1');
 const getCoin = document.querySelector('#coin');
 const getMethod = document.querySelector('#method');
 const profMessage1 = document.querySelector('#profMessage1');
 const profMessage2 = document.querySelector('#profMessage2')
+const poolNameSelector = document.querySelector('#poolName');
+const poolListSelector = document.querySelector('#poolList');
 
 profForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    profMessage1.textContent = "Getting data...";
+    poolNameSelector.textContent = "Getting data...";
+    poolListSelector.innerHTML = '';
 
     const coin = getCoin.value;
     const method = getMethod.value;
@@ -20,41 +21,57 @@ profForm.addEventListener('submit', (e) => {
         response.json().then((data) => {
             if (data.error) {
                 console.log(error);
-            }else if (method == 'API') {
+            }else if (method == 'api' || 'crawler') {
 
-               let pools = '';
+               let poolName = '';
                let res = '';
                let prop = '';
 
                let html = '';
 
- /*               for (keys in data) {
-                 pools = data[keys];
+               for (key in data) {
+
+                 pools = data[key];
+                 poolName = key + '</br>';
 
                  for (keys in pools) {
-                    res = pools[keys];
+                    resPools = pools[keys];
                     
-                    for (keys in res) {
-                        prop = res[keys];
+                    for (keys in resPools) {
+                        prop = resPools[keys];
 
+                        if (keys == 'poolName') {
+                            keys = '<strong>' + keys + '</strong>';
+                        }
 
-                        profMessage1.textContent = keys;
-                        profMessage2.textContent = prop;
-                        console.log(keys)
-                        console.log(prop)
+                        if (keys == 'url') {
+
+                           prop = '<a href="' + resPools[keys] + '" target = "_blank">mining claculator</a>';
+                        }
+
+                        html += keys + ': ';
+                        html += prop;
+                        html += '</br>'
+                        html += '</br>'
+
                     }
+                    
                  }
                  
-               } */
+               }
+            
+              // console.log(html)
+            //document.getElementById('poolList').innerHTML = html;
+            
+           poolNameSelector.innerHTML = poolName;
+           poolListSelector.innerHTML = html;
+            
+    }
 
-           // profMessage1.textContent = data;
-             
-
-            }
-
-            console.log(data)
+            
+           /*  console.log(data)
             profMessage1.textContent = 'UI is under construction, data is visible in console.';
-
+ */
         })
     })
     
