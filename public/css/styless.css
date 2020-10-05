@@ -43,15 +43,15 @@ header a {
   width: 250px;
 }
 
-input {
+input, select {
     border: 1px solid #cccccc;
     padding: 8px;
 }
 
-select {
+/* select {
     border: 1px solid #cccccc;
     padding: 8px;
-}
+} */
 
 
 button {
@@ -63,20 +63,21 @@ button {
 }
 
 
-#assetsToCollect {
+#assetsToCollect, #exchangesToSellect  {
     color: grey;
     font-size: smaller;
 }
 
-#exchangesToSellect {
+/* #exchangesToSellect {
     color: grey;
     font-size: smaller;
-}
+} */
 
-#message-1 {
+#message-1,#poolName   {
     color: rgb(43, 46, 226);
     font-weight: bold;
 }
+
 
 #message-10 {
     color: rgb(53, 0, 139);

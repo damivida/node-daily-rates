@@ -32,7 +32,7 @@ profForm.addEventListener('submit', (e) => {
                for (key in data) {
 
                  pools = data[key];
-                 poolName = key + '</br>';
+                 poolName = key + '</br></br>';
 
                  for (keys in pools) {
                     resPools = pools[keys];
@@ -46,8 +46,11 @@ profForm.addEventListener('submit', (e) => {
 
                         if (keys == 'url') {
 
-                           prop = '<a href="' + resPools[keys] + '" target = "_blank">mining claculator</a>';
+                           prop = '<a href="' + resPools[keys] + '" target = "_blank">mining claculator</a></br>';
+                    
                         }
+
+                      
 
                         html += keys + ': ';
                         html += prop;
