@@ -16,7 +16,7 @@ const averageFuncToFixed8 = require('./functions/averageFuncToFixed8')
 const averageFuncToFixed2 = require('./functions/averageFuncToFixed2')
 const profRound = require('./functions/profRound');
 const averageFunc = require('./functions/averageFunc');
-
+const {coinotronDenom,testMethod, coinotronDenomHs} = require('./functions/functionsAll')
 
 
 const app = express();
@@ -590,8 +590,13 @@ app.get('/miningPools/ETH/api', (req, res) => {
         const poolName = 'Coinotron - ETH';
         const lastBlockTime = $('#row0TableSolvedBlocksETH > td:nth-child(2)').text();
         let hp = parseFloat($('#row0TableBestMinersETH > td:nth-child(3)').text().replace('GH', ''));
+        let hpDenom = $('#row0TableBestMinersETH > td:nth-child(3)').text();
+        hpDenom = hpDenom.slice((hpDenom.length)-2,hpDenom.length);
         let coinsPerDay = parseFloat($('#row0TableBestMinersETH > td:nth-child(4)').text());
-        let prof = (coinsPerDay / hp) / 1000;
+       
+  
+       let prof = coinotronDenom(hp, hpDenom, coinsPerDay);
+          
         let profitability = profRound(prof)
         let url = 'https://www.coinotron.com/app?action=statistics';
   
@@ -750,19 +755,15 @@ app.get('/miningPools/ETH/api', (req, res) => {
       const poolName = 'Coinotron - ETC';
       const lastBlockTime = $('#row0TableSolvedBlocksETC > td:nth-child(2)').text();
       const hp = parseFloat($('#row0TableBestMinersETC > td:nth-child(3)').text().replace(' GH', ''));
+      let hpDenom = $('#row0TableBestMinersETC > td:nth-child(3)').text();
+      hpDenom = hpDenom.slice((hpDenom.length)-2,hpDenom.length);
       let coinsPerDay = parseFloat($('#row0TableBestMinersETC > td:nth-child(4)').text());
-  
-      let hpString = $('#row0TableBestMinersETC > td:nth-child(3)').text();
-      hpString = hpString.slice(4,6)
-      //let prof = (coinsPerDay/hp);
-  
-      let profitability = parseFloat((coinsPerDay / hp).toFixed(8));
-  
-      if(hpString == 'GH') {
-        profitability = profitability/1000;
-      }
       
-    
+
+      let prof = coinotronDenom(hp, hpDenom, coinsPerDay);
+          
+      let profitability = profRound(prof);
+
       let url = 'https://www.coinotron.com/app?action=statistics';
   
       return ({ poolName, hp, coinsPerDay, profitability, lastBlockTime, url });
@@ -1469,8 +1470,13 @@ app.get('/miningPools/ETH/api', (req, res) => {
         const lastBlockTime = $('#row0TableBestMinersDRK > td:nth-child(4)').text();
         let hp = parseFloat($('#row0TableBestMinersDRK > td:nth-child(3)').text().replace(' GH', ''));
         let coinsPerDay = parseFloat($('#row0TableBestMinersDRK > td:nth-child(4)').text());
-        let prof = (coinsPerDay / hp) / 1000;
+        let hpDenom = $('#row0TableBestMinersDRK > td:nth-child(3)').text();
+        hpDenom = hpDenom.slice((hpDenom.length)-2,hpDenom.length);
+
+
+        let prof = coinotronDenom(hp, hpDenom, coinsPerDay);
         let profitability = profRound(prof)
+  
         let url = 'https://www.coinotron.com/app?action=statistics';
   
   
@@ -1660,9 +1666,14 @@ app.get('/miningPools/ETH/api', (req, res) => {
         const poolName = 'Coinotron - ZEC';
         const lastBlockTime = $('#row0TableSolvedBlocksZEC > td:nth-child(2)').text();
         let hp = parseFloat($("#row0TableBestMinersZEC > td:nth-child(3)").text().replace(' KH', ''));
+        let hpDenom = $("#row0TableBestMinersZEC > td:nth-child(3)").text();
+        hpDenom = hpDenom.slice((hpDenom.length)-2,hpDenom.length);
         let coinsPerDay = parseFloat($("#row0TableBestMinersZEC > td:nth-child(4)").text());
-        let prof = (coinsPerDay / hp) / 1000;
-        let profitability = profRound(prof)
+        
+        let prof = coinotronDenomHs(hp, hpDenom, coinsPerDay);
+          
+        let profitability = profRound(prof);
+
         let url = 'https://www.coinotron.com/app?action=statistics';
   
   
