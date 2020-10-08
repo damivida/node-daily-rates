@@ -24,6 +24,10 @@ profForm.addEventListener('submit', (e) => {
     const coin = getCoin.value;
     const method = getMethod.value;
 
+    if (!coin) {
+        console.log('Coin coin')
+    }
+
 //Method to display available pools-----------
     
 if(coin === 'eth') {
@@ -67,11 +71,16 @@ if(coin === 'eth') {
     poolMessage2.textContent = 'Mining pools available for BEAM via Crawler: Crypt0zone.'
     poolNameSelector.textContent = "Getting data...";
 }else {
-    poolMessage1.textContent = 'Please select one of available coins';
-    
+    poolMessage1.textContent = 'Please select one of available coins and methods';
+    poolNameSelector.textContent = '';
 }
 
 //-----------
+
+if(!coin || !method) {
+    poolMessage1.textContent = 'Please select one of available coins and methodsss'
+}
+
     let html = '';
     fetch(`/miningPools/${coin}/${method}`).then((response) => {
         response.json().then((data) => {
@@ -125,5 +134,7 @@ if(coin === 'eth') {
  */
         })
     })
+
+
     
 })
