@@ -46,7 +46,7 @@ const poolDisplay = () => {
        poolMessage2.textContent = 'Mining pools available for BEAM via Crawler: Crypt0zone.'
        poolNameSelector.textContent = "Getting data...";
    }else {
-       return poolMessage1.textContent = 'Please select one of available coins';
+       return poolMessage1.textContent = 'Please select one of available coins, and methods';
        
    }
 
