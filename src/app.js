@@ -541,7 +541,9 @@ app.get('/miningPools/ETH/api', (req, res) => {
       res.send({ ethMiningPools });
   
     })).catch(errors => {
-      console.log(errors);
+
+      res.send({errors})
+      //console.log(errors);
     })
   
   });

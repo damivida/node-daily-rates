@@ -95,6 +95,13 @@ if(!coin || !method) {
                let html = '';
 
                for (key in data) {
+                   
+                if(key == "errors") {
+                    html += 'Error:' + data[key]['message']; 
+                    poolMessage1.textContent = '';
+                    poolMessage2.textContent = '';
+                    break;
+                }
 
                  pools = data[key];
                  poolName = key + '</br></br>';
@@ -117,6 +124,8 @@ if(!coin || !method) {
                         html += prop;
                         html += '</br>'
                         html += '</br>'
+
+                       
                     }
                  }                
                }
