@@ -553,29 +553,40 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
   app.get('/miningPools/eth/crawler', (req, res) => {
   
+
+   
     async function miningPoolHubETH(page) {
+
+      try {
+
+        await page.setDefaultNavigationTimeout(0);
+        await page.goto('https://ethereum.miningpoolhub.com/index.php?page=statistics&action=pool');
+        const html = await page.content();
+        const $ = cheerio.load(html);
+    
+        const poolName = 'Mining Pool Hub - ETH';
+        let lastBlockTime = $('#main > div:nth-child(2) > article:nth-child(2) > div > table > tbody > tr:nth-child(8) > td').text();
+        let hp = parseFloat($('#main > div:nth-child(2) > article:nth-child(1) > div > table > tbody > tr:nth-child(1) > td:nth-child(4)')
+          .text()
+          .replace(',', '')
+          .replace(',', '')
+          .replace(',', ''));
+    
+        let coinsPerDay = parseFloat($('#main > div:nth-child(2) > article:nth-child(1) > div > table > tbody > tr:nth-child(1) > td:nth-child(5)').text());
+        let prof = (coinsPerDay / hp) * 1000;
+        let profitability = profRound(prof)
+        let url = 'https://ethereum.miningpoolhub.com/index.php?page=statistics&action=pool';
+    
+        //console.log({poolName, hp, coinsPerDay, profitability, lastBlockTime});
+    
+        return ({ poolName, hp, coinsPerDay, profitability, lastBlockTime, url });
+      
+      } catch (error) {
+        
+        return error;
+      }
   
-      await page.setDefaultNavigationTimeout(0);
-      await page.goto('https://ethereum.miningpoolhub.com/index.php?page=statistics&action=pool');
-      const html = await page.content();
-      const $ = cheerio.load(html);
-  
-      const poolName = 'Mining Pool Hub - ETH';
-      let lastBlockTime = $('#main > div:nth-child(2) > article:nth-child(2) > div > table > tbody > tr:nth-child(8) > td').text();
-      let hp = parseFloat($('#main > div:nth-child(2) > article:nth-child(1) > div > table > tbody > tr:nth-child(1) > td:nth-child(4)')
-        .text()
-        .replace(',', '')
-        .replace(',', '')
-        .replace(',', ''));
-  
-      let coinsPerDay = parseFloat($('#main > div:nth-child(2) > article:nth-child(1) > div > table > tbody > tr:nth-child(1) > td:nth-child(5)').text());
-      let prof = (coinsPerDay / hp) * 1000;
-      let profitability = profRound(prof)
-      let url = 'https://ethereum.miningpoolhub.com/index.php?page=statistics&action=pool';
-  
-      //console.log({poolName, hp, coinsPerDay, profitability, lastBlockTime});
-  
-      return ({ poolName, hp, coinsPerDay, profitability, lastBlockTime, url });
+
   
     }
   
@@ -605,6 +616,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
         return ({ poolName, hp, coinsPerDay, profitability, lastBlockTime, url });
   
       } catch (err) {
+        return err;
         console.log(err);
   
       }
@@ -634,7 +646,8 @@ app.get('/miningPools/ETH/api', (req, res) => {
         return ({ poolName, profWithFee, fee, profitability, url });
   
       } catch (error) {
-        console.error(error);
+        
+        return error;
       }
   
     }
@@ -735,7 +748,9 @@ app.get('/miningPools/ETH/api', (req, res) => {
       res.send({ etcMiningPools });
   
     })).catch(errors => {
-      console.log(errors);
+
+      res.send({errors});
+      //console.log(errors);
     })
   
   });
@@ -748,26 +763,33 @@ app.get('/miningPools/ETH/api', (req, res) => {
     //COINOTRON
     async function coinotronETC(page) {
   
-      await page.setDefaultNavigationTimeout(0);
-      await page.goto('https://www.coinotron.com/app?action=statistics');
-      const html = await page.content();
-      const $ = cheerio.load(html);
-  
-      const poolName = 'Coinotron - ETC';
-      const lastBlockTime = $('#row0TableSolvedBlocksETC > td:nth-child(2)').text();
-      const hp = parseFloat($('#row0TableBestMinersETC > td:nth-child(3)').text().replace(' GH', ''));
-      let hpDenom = $('#row0TableBestMinersETC > td:nth-child(3)').text();
-      hpDenom = hpDenom.slice((hpDenom.length)-2,hpDenom.length);
-      let coinsPerDay = parseFloat($('#row0TableBestMinersETC > td:nth-child(4)').text());
-      
+      try {
 
-      let prof = coinotronDenom(hp, hpDenom, coinsPerDay);
-          
-      let profitability = profRound(prof);
-
-      let url = 'https://www.coinotron.com/app?action=statistics';
+        await page.setDefaultNavigationTimeout(0);
+        await page.goto('https://www.coinotron.com/app?action=statistics');
+        const html = await page.content();
+        const $ = cheerio.load(html);
+    
+        const poolName = 'Coinotron - ETC';
+        const lastBlockTime = $('#row0TableSolvedBlocksETC > td:nth-child(2)').text();
+        const hp = parseFloat($('#row0TableBestMinersETC > td:nth-child(3)').text().replace(' GH', ''));
+        let hpDenom = $('#row0TableBestMinersETC > td:nth-child(3)').text();
+        hpDenom = hpDenom.slice((hpDenom.length)-2,hpDenom.length);
+        let coinsPerDay = parseFloat($('#row0TableBestMinersETC > td:nth-child(4)').text());
+        
   
-      return ({ poolName, hp, coinsPerDay, profitability, lastBlockTime, url });
+        let prof = coinotronDenom(hp, hpDenom, coinsPerDay);
+            
+        let profitability = profRound(prof);
+  
+        let url = 'https://www.coinotron.com/app?action=statistics';
+    
+        return ({ poolName, hp, coinsPerDay, profitability, lastBlockTime, url });
+        
+      } catch (error) {
+        return error;
+      }
+     
     }
   
   
@@ -791,12 +813,10 @@ app.get('/miningPools/ETH/api', (req, res) => {
         return ({ poolName, profWithFee, fee, profitability, url });
   
       } catch (error) {
-        console.error(error);
+        return error;
       }
   
     }
-  
-  
   
     const etcScraping = async () => {
       const browser = await puppeteer.launch({ headless: true , args: ["--no-sandbox"] });
@@ -903,28 +923,32 @@ app.get('/miningPools/ETH/api', (req, res) => {
   app.get('/miningPools/ltc/crawler', (req, res) => {
   
     async function liteCoinPool(page) {
-  
-      await page.setDefaultNavigationTimeout(0);
-      await page.goto('https://www.litecoinpool.org/stats');
-      const html = await page.content();
-      const $ = cheerio.load(html);
-  
-      const poolName = 'LitecoinPool - LTC';
-      let lastBlockTime = $('#stats_pool_time_since_block').text();
-      let hp = parseFloat($('#content > div > div > div.optional2.column > table > tbody > tr:nth-child(2) > td:nth-child(3)')
-        .text()
-        .replace(',', ''));
-  
-  
-      let coinsPerDay = parseFloat($('#content > div > div > div.optional2.column > table > tbody > tr:nth-child(2) > td:nth-child(4)').text());
-      let prof = (coinsPerDay / hp) / 1000;
-      let profitability = profRound(prof)
-      let url = 'https://www.litecoinpool.org/stats';
-  
-  
-      //console.log({poolName, hp, coinsPerDay, profitability, lastBlockTime});
-  
-      return ({ poolName, hp, coinsPerDay, profitability, lastBlockTime, url });
+
+      try {
+
+        await page.setDefaultNavigationTimeout(0);
+        await page.goto('https://www.litecoinpool.org/stats');
+        const html = await page.content();
+        const $ = cheerio.load(html);
+    
+        const poolName = 'LitecoinPool - LTC';
+        let lastBlockTime = $('#stats_pool_time_since_block').text();
+        let hp = parseFloat($('#content > div > div > div.optional2.column > table > tbody > tr:nth-child(2) > td:nth-child(3)')
+          .text()
+          .replace(',', ''));
+    
+    
+        let coinsPerDay = parseFloat($('#content > div > div > div.optional2.column > table > tbody > tr:nth-child(2) > td:nth-child(4)').text());
+        let prof = (coinsPerDay / hp) / 1000;
+        let profitability = profRound(prof)
+        let url = 'https://www.litecoinpool.org/stats';
+    
+        return ({ poolName, hp, coinsPerDay, profitability, lastBlockTime, url });
+        
+      } catch (error) {
+        return error;
+      }
+
     }
   
   
@@ -948,7 +972,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
         return ({ poolName, profWithFee, fee, profitability, url });
   
       } catch (error) {
-        console.error(error);
+        return error;
       }
   
     }
@@ -1048,7 +1072,9 @@ app.get('/miningPools/ETH/api', (req, res) => {
       res.send({ btcMiningPools });
   
     })).catch(errors => {
-      console.log(errors);
+
+      res.send({errors})
+      //console.log(errors);
     })
   
   });
@@ -1079,7 +1105,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
         return ({ poolName, profWithFee, fee, profitability, url });
   
       } catch (error) {
-        console.error(error);
+        return error;
       }
   
     }
@@ -1109,6 +1135,8 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
   
     } catch (error) {
+
+        return error;
         console.log(error);
     }
   
@@ -1131,7 +1159,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
       return(trxfee);
   
     } catch (err) {
-        console.log(err);
+       return error;
     }
   
   }
@@ -1251,7 +1279,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
       res.send({ bchMiningPools });
   
     })).catch(errors => {
-      console.log(errors);
+      res.send({errors});
     })
   
   });
@@ -1286,7 +1314,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
   
     } catch (error) {
-        console.log(error);
+        return error;
     }
   
   }
@@ -1308,7 +1336,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
       return(trxFee);
   
     } catch (err) {
-        console.log(err);
+        return error;
     }
   
   }
@@ -1422,7 +1450,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
       res.send({ dashMiningPools });
   
     })).catch(errors => {
-      console.log(errors);
+      res.send({errors});
     })
   
   });
@@ -1432,7 +1460,9 @@ app.get('/miningPools/ETH/api', (req, res) => {
   app.get('/miningPools/dash/crawler', (req, res) => {
   
     async function miningPoolHubDASH(page) {
-  
+
+      try {
+
       await page.setDefaultNavigationTimeout(0);
       await page.goto('https://dash.miningpoolhub.com/index.php?page=statistics&action=pool');
       const html = await page.content();
@@ -1454,6 +1484,10 @@ app.get('/miningPools/ETH/api', (req, res) => {
       //console.log({poolName, hp, coinsPerDay, profitability, lastBlockTime});
   
       return ({ poolName, hp, coinsPerDay, profitability, lastBlockTime, url });
+        
+      } catch (error) {
+        return error;
+      }
   
     }
   
@@ -1484,8 +1518,8 @@ app.get('/miningPools/ETH/api', (req, res) => {
       //  console.log({ poolName, hp, coinsPerDay, profitability, lastBlockTime, url });
         return ({ poolName, hp, coinsPerDay, profitability, lastBlockTime, url });
   
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        return error;
   
       }
   
@@ -1512,7 +1546,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
         return ({ poolName, profWithFee, fee, profitability, url });
   
       } catch (error) {
-        console.error(error);
+        return error;
       }
   
   }  
@@ -1619,7 +1653,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
       res.send({ zecMiningPools });
   
     })).catch(errors => {
-      console.log(errors);
+      res.send({errors});
     })
   
   });
@@ -1630,6 +1664,9 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
   async function miningPoolHubZEC(page) {
   
+
+    try {
+      
     await page.setDefaultNavigationTimeout(0);
     await page.goto('https://zcash.miningpoolhub.com/index.php?page=statistics&action=pool');
     const html = await page.content();
@@ -1651,6 +1688,12 @@ app.get('/miningPools/ETH/api', (req, res) => {
     //console.log({poolName, hp, coinsPerDay, profitability, lastBlockTime});
   
     return ({ poolName, hp, coinsPerDay, profitability, lastBlockTime, url });
+
+    } catch (error) {
+      return error;
+    }
+
+    
   
   }
   
@@ -1681,8 +1724,8 @@ app.get('/miningPools/ETH/api', (req, res) => {
         //console.log({ poolName, hp, coinsPerDay, profitability, lastBlockTime, url });
         return ({ poolName, hp, coinsPerDay, profitability, lastBlockTime, url });
   
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+       return error;
   
       }
   
@@ -1709,7 +1752,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
         return ({ poolName, profWithFee, fee, profitability, url });
   
       } catch (error) {
-        console.error(error);
+        return error;
       }
   
   }  
@@ -1763,16 +1806,16 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
     const whatToMineUrl = `https://whattomine.com/coins/101.json?hr=1000&p=0.0&fee=0&cost=0&hcost=0.07`;
     const viaBtcUrl = `https://www.viabtc.com/res/tools/calculator?coin=XMR`;
-    const moneroCryptoPoolUrl = `https://monero.crypto-pool.fr:8091/stats`;
+   // const moneroCryptoPoolUrl = `https://monero.crypto-pool.fr:8091/stats`;
    
     const whatToMineRequest = axios.get(whatToMineUrl);
     const viaBtcRequest = axios.get(viaBtcUrl);
-    const moneroCryptoPoolRequest = axios.get(moneroCryptoPoolUrl)
+    //const moneroCryptoPoolRequest = axios.get(moneroCryptoPoolUrl)
     
-    axios.all([whatToMineRequest, viaBtcRequest, moneroCryptoPoolRequest]).then(axios.spread((...responses) => {
+    axios.all([whatToMineRequest, viaBtcRequest]).then(axios.spread((...responses) => {
       const whatToMineResponse = responses[0].data;
       const viaBtcResponse = responses[1].data;
-      const moneroCryptoPoolResponse = responses[0].data;
+      //const moneroCryptoPoolResponse = responses[0].data;
       
   
       let whatToMineProf = whatToMineResponse["estimated_rewards"] / 1000;
@@ -1781,8 +1824,8 @@ app.get('/miningPools/ETH/api', (req, res) => {
       let viaBtcProf = viaBtcResponse["data"][0]["profit"]["XMR"] / 1000;
       viaBtcProf = viaBtcProf.toFixed(8).toString();
 
-      let moneroCryptoPoolDiff = moneroCryptoPoolResponse["network"]["difficulty"];
-      let moneroCryptoPoolreward = moneroCryptoPoolResponse["network"]["reward"];
+      //let moneroCryptoPoolDiff = moneroCryptoPoolResponse["network"]["difficulty"];
+      //let moneroCryptoPoolreward = moneroCryptoPoolResponse["network"]["reward"];
   
   
       const whatToMineData = {
@@ -1810,7 +1853,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
       res.send({ xmrMiningPools });
   
     })).catch(errors => {
-      console.log(errors);
+      res.send({errors});
     })
   
   
@@ -1842,8 +1885,8 @@ app.get('/miningPools/ETH/api', (req, res) => {
         //console.log({networkDiff,netLastRew, profitability});
       return({poolName,networkDiff,netLastRew, profitability, url})
   
-      } catch (err) {
-          console.log(err);
+      } catch (error) {
+          return error;
       }
   
   }
@@ -1868,8 +1911,8 @@ app.get('/miningPools/ETH/api', (req, res) => {
       //console.log({ poolName, profitability,url });
       return ({ poolName, profitability, url  });
   
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      return error;
   
     }
   
@@ -1896,7 +1939,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
           return ({ poolName, profWithFee, fee, profitability, url });
     
         } catch (error) {
-          console.error(error);
+          return error;
         }
     
     }  
@@ -1992,7 +2035,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
       res.send({ xmcMiningPools });
   
     })).catch(errors => {
-      console.log(errors);
+      res.send({errors});
     })
   
   });
@@ -2036,7 +2079,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
       res.send({ beamMiningPools });
   
     })).catch(errors => {
-      console.log(errors);
+      res.send({errors});
     })
   
   });
@@ -2063,11 +2106,11 @@ app.get('/miningPools/ETH/api', (req, res) => {
         const profitability = $("#calculator-details-result > div > table > tbody > tr:nth-child(2) > td.text-nowrap.p-2.table-light").text().trim().replace("BEAM", "");
         let url = 'https://crypt0.zone/calculator/details/BEAM?hr=1&pwr=0&ec=0.0&fee=0&selected_exchange=42&cur=USD&average=24h&exchange=0';
     
-      console.log({poolName, profitability, url});
+      //console.log({poolName, profitability, url});
       return({poolName, profitability, url})
     
-      } catch (err) {
-          console.log(err);
+      } catch (error) {
+          return error;;
       }
     
     }
