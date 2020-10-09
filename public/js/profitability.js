@@ -60,7 +60,7 @@ if(coin === 'eth') {
      poolNameSelector.textContent = "Getting data...";
 }else if(coin === 'xmr') {
     poolMessage1.textContent = 'Mining pools available for XMR via API: WhatToMine, ViaBtc';
-    poolMessage2.textContent = 'Mining pools available for XMR via Crawler: Monero.crypto-pooL, F2Pool, Minergate.'
+    poolMessage2.textContent = 'Mining pools available for XMR via Crawler: Monero.crypto-pool, F2Pool, Minergate.'
     poolNameSelector.textContent = "Getting data...";
 }else if(coin === 'xmc') {
     poolMessage1.textContent = 'Mining pools available for XMC via API: CoinCalculators, FairHash.';

@@ -594,10 +594,9 @@ app.get('/miningPools/ETH/api', (req, res) => {
         hpDenom = hpDenom.slice((hpDenom.length)-2,hpDenom.length);
         let coinsPerDay = parseFloat($('#row0TableBestMinersETH > td:nth-child(4)').text());
        
-  
-       let prof = coinotronDenom(hp, hpDenom, coinsPerDay);
-          
-        let profitability = profRound(prof)
+        let prof = coinotronDenom(hp, hpDenom, coinsPerDay);
+        let profitability = profRound(prof);
+       
         let url = 'https://www.coinotron.com/app?action=statistics';
   
   
@@ -624,8 +623,8 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
   
         const poolName = 'F2Pool';
-        const profWithFee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(10) > td > div > div > div.container-info.col-12.col-lg-6 > div.row.calc-inline.hash-val-container > div > div:nth-child(4) > span.pl-1.profit-val.info-value").text().trim());
-        const fee = parseFloat($('#tab-content-main > table > tbody > tr:nth-child(10) > td > div > div > div.container-info.col-12.col-lg-6 > div.row.info-content > div:nth-child(8) > span.info-value').text().replace('% PPS+', ''));
+        const profWithFee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(10) > td > div > div > div.container-info.col-12.col-lg-6 > div > div.row.info-item.calc-inline.hash-val-container > div > div:nth-child(4) > span.pl-1.profit-val.info-value").text().trim());
+        const fee = parseFloat($('#tab-content-main > table > tbody > tr:nth-child(10) > td > div > div > div.container-info.col-12.col-lg-6 > div > div:nth-child(5) > div.col-12.col-lg-4.item > div.info-value').text().replace('% PPS+', ''));
         const profitability = parseFloat((profWithFee / ((100 - fee) / 100)).toFixed(8));
         const url = 'https://www.f2pool.com/';
   
@@ -781,8 +780,8 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
   
         const poolName = 'F2Pool';
-        const profWithFee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(12) > td > div > div > div.container-info.col-12.col-lg-6 > div.row.calc-inline.hash-val-container > div > div:nth-child(4) > span.pl-1.profit-val.info-value").text().trim());
-        const fee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(12) > td > div > div > div.container-info.col-12.col-lg-6 > div.row.info-content > div:nth-child(10) > span.info-value").text().replace('% PPS', ''));
+        const profWithFee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(12) > td > div > div > div.container-info.col-12.col-lg-6 > div > div.row.info-item.calc-inline.hash-val-container > div > div:nth-child(4) > span.pl-1.profit-val.info-value").text().trim());
+        const fee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(12) > td > div > div > div.container-info.col-12.col-lg-6 > div > div:nth-child(5) > div.col-12.col-lg-4.item > div.info-value").text().replace('% PPS', ''));
         const profitability = parseFloat((profWithFee / ((100 - fee) / 100)).toFixed(8));
         const url = 'https://www.f2pool.com/';
   
@@ -937,13 +936,13 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
   
         const poolName = 'F2Pool';
-        const profWithFee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(8) > td > div > div > div.container-info.col-12.col-lg-6 > div.row.calc-inline.hash-val-container > div > div:nth-child(4) > span.pl-1.profit-val.info-value").text().trim());
-        const fee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(8) > td > div > div > div.container-info.col-12.col-lg-6 > div.row.info-content > div:nth-child(10) > span.info-value").text().replace('% PPS', ''));
+        const profWithFee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(8) > td > div > div > div.container-info.col-12.col-lg-6 > div > div.row.info-item.calc-inline.hash-val-container > div > div:nth-child(4) > span.pl-1.profit-val.info-value").text().trim());
+        const fee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(8) > td > div > div > div.container-info.col-12.col-lg-6 > div > div:nth-child(5) > div.col-12.col-lg-4.item > div.info-value").text().replace('% PPS', ''));
         let profitability = parseFloat((profWithFee / ((100 - fee) / 100)).toFixed(8));
         profitability = parseFloat((profitability / 1000).toFixed(8));
         const url = 'https://www.f2pool.com/';
   
-        console.log({ profWithFee, fee, profitability });
+        //console.log({ profWithFee, fee, profitability });
         return ({ poolName, profWithFee, fee, profitability, url });
   
       } catch (error) {
@@ -1069,8 +1068,8 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
   
         const poolName = 'F2Pool';
-        const profWithFee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(2) > td > div > div > div.container-info.col-12.col-lg-6 > div.row.calc-inline.hash-val-container > div > div:nth-child(4) > span.pl-1.profit-val.info-value").text().trim());
-        const fee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(2) > td > div > div > div.container-info.col-12.col-lg-6 > div.row.info-content > div:nth-child(10) > span.info-value").text().replace('% PPS+', ''));
+        const profWithFee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(2) > td > div > div > div.container-info.col-12.col-lg-6 > div > div.row.info-item.calc-inline.hash-val-container > div > div:nth-child(4) > span.pl-1.profit-val.info-value").text().trim());
+        const fee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(2) > td > div > div > div.container-info.col-12.col-lg-6 > div > div:nth-child(5) > div.col-12.col-lg-4.item > div.info-value").text().replace('% PPS+', ''));
         const profitability = parseFloat((profWithFee / ((100 - fee) / 100)).toFixed(8));
         const url = 'https://www.f2pool.com/';
   
@@ -1501,8 +1500,8 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
   
         const poolName = 'F2Pool - DASH';
-        const profWithFee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(18) > td > div > div > div.container-info.col-12.col-lg-6 > div.row.calc-inline.hash-val-container > div > div:nth-child(4) > span.pl-1.profit-val.info-value").text().trim());
-        const fee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(18) > td > div > div > div.container-info.col-12.col-lg-6 > div.row.info-content > div:nth-child(10) > span.info-value").text().replace("% PPS", ""));
+        const profWithFee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(18) > td > div > div > div.container-info.col-12.col-lg-6 > div > div.row.info-item.calc-inline.hash-val-container > div > div:nth-child(4) > span.pl-1.profit-val.info-value").text().trim());
+        const fee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(18) > td > div > div > div.container-info.col-12.col-lg-6 > div > div:nth-child(5) > div.col-12.col-lg-4.item > div.info-value").text().replace("% PPS", ""));
         let profitability = parseFloat((profWithFee / ((100 - fee) / 100)).toFixed(8));
         profitability =  parseFloat((profitability/1000).toFixed(8));
         const url = 'https://www.f2pool.com/';
@@ -1698,13 +1697,13 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
   
         const poolName = 'F2Pool - ZEC';
-        const profWithFee = parseFloat($("#tab-content-labs > table > tbody > tr:nth-child(2) > td > div > div > div.container-info.col-12.col-lg-6 > div.row.calc-inline.hash-val-container > div > div:nth-child(4) > span.pl-1.profit-val.info-value").text().trim());
-        const fee = parseFloat($("#tab-content-labs > table > tbody > tr:nth-child(2) > td > div > div > div.container-info.col-12.col-lg-6 > div.row.info-content > div:nth-child(10) > span.info-value").text().replace("% PPS", ""));
+        const profWithFee = parseFloat($("#tab-content-labs > table > tbody > tr:nth-child(2) > td > div > div > div.container-info.col-12.col-lg-6 > div > div.row.info-item.calc-inline.hash-val-container > div > div:nth-child(4) > span.pl-1.profit-val.info-value").text().trim());
+        const fee = parseFloat($("#tab-content-labs > table > tbody > tr:nth-child(2) > td > div > div > div.container-info.col-12.col-lg-6 > div > div:nth-child(5) > div.col-12.col-lg-4.item > div.info-value").text().replace("% PPS", ""));
         let profitability = parseFloat((profWithFee / ((100 - fee) / 100)).toFixed(8));
         profitability =  parseFloat((profitability/1000).toFixed(8));
         const url = 'https://www.f2pool.com/';
   
-        console.log({poolName, profWithFee, fee, profitability, url});
+       // console.log({poolName, profWithFee, fee, profitability, url});
         return ({ poolName, profWithFee, fee, profitability, url });
   
       } catch (error) {
@@ -1762,13 +1761,16 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
     const whatToMineUrl = `https://whattomine.com/coins/101.json?hr=1000&p=0.0&fee=0&cost=0&hcost=0.07`;
     const viaBtcUrl = `https://www.viabtc.com/res/tools/calculator?coin=XMR`;
+    const moneroCryptoPoolUrl = `https://monero.crypto-pool.fr:8091/stats`;
    
     const whatToMineRequest = axios.get(whatToMineUrl);
     const viaBtcRequest = axios.get(viaBtcUrl);
+    const moneroCryptoPoolRequest = axios.get(moneroCryptoPoolUrl)
     
-    axios.all([whatToMineRequest, viaBtcRequest]).then(axios.spread((...responses) => {
+    axios.all([whatToMineRequest, viaBtcRequest, moneroCryptoPoolRequest]).then(axios.spread((...responses) => {
       const whatToMineResponse = responses[0].data;
       const viaBtcResponse = responses[1].data;
+      const moneroCryptoPoolResponse = responses[0].data;
       
   
       let whatToMineProf = whatToMineResponse["estimated_rewards"] / 1000;
@@ -1776,6 +1778,9 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
       let viaBtcProf = viaBtcResponse["data"][0]["profit"]["XMR"] / 1000;
       viaBtcProf = viaBtcProf.toFixed(8).toString();
+
+      let moneroCryptoPoolDiff = moneroCryptoPoolResponse["network"]["difficulty"];
+      let moneroCryptoPoolreward = moneroCryptoPoolResponse["network"]["reward"];
   
   
       const whatToMineData = {
@@ -1833,7 +1838,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
         let url = 'https://monero.crypto-pool.fr/';
     
         //console.log({networkDiff,netLastRew, profitability});
-      return({networkDiff,netLastRew, profitability, url})
+      return({poolName,networkDiff,netLastRew, profitability, url})
   
       } catch (err) {
           console.log(err);
@@ -1879,8 +1884,8 @@ app.get('/miningPools/ETH/api', (req, res) => {
     
     
           const poolName = 'F2Pool - XMR';
-          const profWithFee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(20) > td > div > div > div.container-info.col-12.col-lg-6 > div.row.calc-inline.hash-val-container > div > div:nth-child(4) > span.pl-1.profit-val.info-value").text().trim());
-          const fee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(20) > td > div > div > div.container-info.col-12.col-lg-6 > div.row.info-content > div:nth-child(10) > span.info-value").text().replace("% PPS", ""));
+          const profWithFee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(20) > td > div > div > div.container-info.col-12.col-lg-6 > div > div.row.info-item.calc-inline.hash-val-container > div > div:nth-child(4) > span.pl-1.profit-val.info-value").text().trim());
+          const fee = parseFloat($("#tab-content-main > table > tbody > tr:nth-child(20) > td > div > div > div.container-info.col-12.col-lg-6 > div > div:nth-child(5) > div.col-12.col-lg-4.item > div.info-value").text().replace("% PPS", ""));
           let profitability = parseFloat((profWithFee / ((100 - fee) / 100)).toFixed(8));
           profitability =  parseFloat((profitability/1000).toFixed(8));
           const url = 'https://www.f2pool.com/';
