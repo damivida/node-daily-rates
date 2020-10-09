@@ -1976,11 +1976,12 @@ app.get('/miningPools/ETH/api', (req, res) => {
         const xmrMiningPools = {
           moneroCryptoPool: scrapingMoneroCryptoPool,
           f2PoolXMR: scrapingF2PoolXMR,
-          minergateXMR: scrapingMinergateXMR
+          minergateXMR: scrapingMinergateXMR,
+          avgXmrMiningProf: profAvg
           
         }
        
-        res.send({ xmrMiningPools, profAvg });
+        res.send({ xmrMiningPools});
        
       }
     
@@ -2137,11 +2138,12 @@ app.get('/miningPools/ETH/api', (req, res) => {
         //--------------------------------
     
         const beamMiningPools = {
-          crypt0Zone: scrapingCrypt0Zone
+          crypt0Zone: scrapingCrypt0Zone,
+          avgBeamMiningProf: profAvg
           
         }
        
-        res.send({ beamMiningPools, profAvg });
+        res.send({ beamMiningPools});
        
       }
     

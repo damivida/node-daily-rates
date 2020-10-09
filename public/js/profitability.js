@@ -97,7 +97,7 @@ if(!coin || !method) {
                for (key in data) {
                    
                 if(key == "errors") {
-                    html += 'Error:' + data[key]['message']; 
+                    html += 'Error:' +data[key]['message']; 
                     poolMessage1.textContent = '';
                     poolMessage2.textContent = '';
                     break;
