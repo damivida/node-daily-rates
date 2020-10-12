@@ -116,6 +116,11 @@ if(!coin || !method) {
                             keys = '<strong>' + keys + '</strong>';
                         }
 
+                        if (keys == 'profitability') {
+                            keys = '<span style="color: rgb(53, 0, 139)">' + keys + '</span>';
+                            prop = '<span style="color: rgb(53, 0, 139)">' + prop + '</span>';
+                        }
+
                         if (keys == 'url') {
 
                            prop = '<a href="' + resPools[keys] + '" target = "_blank">mining claculator</a></br>';      
