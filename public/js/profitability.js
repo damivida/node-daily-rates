@@ -44,12 +44,16 @@ if(coin === 'eth') {
     poolNameSelector.textContent = "Getting data...";
 }else if(coin === 'btc') {
     poolMessage1.textContent = 'Mining pools available for BTC via API: WhatToMine, ViaBtc, Poolin, BtcCom.';
-    poolMessage2.textContent = 'Mining pools available for BTC via Crawler: CoinWarz, F2Pool.'
+    poolMessage2.textContent = 'Mining pools available for BTC via Crawler: F2Pool.'
     poolNameSelector.textContent = "Getting data...";
 }else if(coin === 'bch') {
     poolMessage1.textContent = 'Mining pools available for BCH via API: WhatToMine, ViaBtc, Poolin, BtcCom';
-     poolMessage2.textContent = 'Mining pools available for BCH via Crawler: CoinWarz.'
+     poolMessage2.textContent = 'No mining pools available via Crawler.'
      poolNameSelector.textContent = "Getting data...";
+
+     if (method === 'crawler') {
+        poolNameSelector.textContent = "";
+     }
 }else if(coin === 'dash') {
     poolMessage1.textContent = 'Mining pools available for DASH via API: WhatToMine, ViaBtc, Poolin';
      poolMessage2.textContent = 'Mining pools available for DASH via Crawler: Mining Pool Hub, Coinotron, F2Pool.'
@@ -66,6 +70,11 @@ if(coin === 'eth') {
     poolMessage1.textContent = 'Mining pools available for XMC via API: CoinCalculators, FairHash.';
     poolMessage2.textContent = 'No mining pools available via Crawler.'
     poolNameSelector.textContent = "Getting data...";
+
+    if (method === 'crawler') {
+        poolNameSelector.textContent = "";
+     }
+     
 }else if(coin === 'beam') {
     poolMessage1.textContent = 'Mining pools available for BEAM via API: WhatToMine, CoinCalculators';
     poolMessage2.textContent = 'Mining pools available for BEAM via Crawler: Crypt0zone.'

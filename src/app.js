@@ -1019,15 +1019,20 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
   app.get('/miningPools/BTC/api', (req, res) => {
   
+
+    //const coinWarzApiKey = '82e0dce42b7a420a8a11fbc892fb7b29';
+
     const whatToMineUrl = `https://whattomine.com/coins/1.json?hr=1000&p=0.0&fee=0&cost=0&hcost=0.07`;
     const viaBtcUrl = `https://www.viabtc.com/res/tools/calculator?coin=BTC`;
     const poolInUrl = 'https://api-prod.poolin.com/api/public/v2/basedata/coins/block_stats';
     const btcComUrl = 'https://btc.com/service/price/coins-income';
+   // const coinWarzUrl = `https://www.coinwarz.com/v1/api/profitability?apikey=${coinWarzApiKey}&algo=sha-256`
   
     const whatToMineRequest = axios.get(whatToMineUrl);
     const viaBtcRequest = axios.get(viaBtcUrl);
     const poolInRequest = axios.get(poolInUrl);
     const btcComRequest = axios.get(btcComUrl);
+    //const coinWarzRequest = axios.get(coinWarzUrl);
   
   
     axios.all([whatToMineRequest, viaBtcRequest, poolInRequest, btcComRequest]).then(axios.spread((...responses) => {
@@ -1035,7 +1040,6 @@ app.get('/miningPools/ETH/api', (req, res) => {
       const viaBtcResponse = responses[1].data;
       const poolInResponse = responses[2].data;
       const btcComResponse = responses[3].data;
-  
   
       const whatToMineData = {
         poolName: "WhatToMine",
@@ -1060,6 +1064,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
         profitability: btcComResponse["data"]["btc"]["income_optimize_coin"].toFixed(8).toString(),
         url: 'https://btc.com/tools/mini-mining-calculator'
       }
+
   
   
       let allProfArr = [parseFloat(whatToMineData.profitability), parseFloat(viaBtcData.profitability), parseFloat(poolInData.profitability), parseFloat(btcComData.profitability)];
@@ -1111,7 +1116,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
     }
   
    //COIN WARZ
-  async function coinWarzBTC(page) {
+/*   async function coinWarzBTC(page) {
   
     try {
   
@@ -1140,12 +1145,12 @@ app.get('/miningPools/ETH/api', (req, res) => {
         console.log(error);
     }
   
-  }
+  } */
   
   
   //---BitinfoCharts
   
-  async function bitinfochartsBTC(page) {
+/*   async function bitinfochartsBTC(page) {
   
     try {
   
@@ -1162,7 +1167,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
        return error;
     }
   
-  }
+  } */
   
   
   
@@ -1179,21 +1184,21 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
   
       let scrapF2PoolBTC = await f2poolBTC(page)
-      let scrapCoinWarzBTC = await coinWarzBTC(page);
+      //let scrapCoinWarzBTC = await coinWarzBTC(page);
   
       let profF2PoolBTC = scrapF2PoolBTC.profitability;
-      let profCoinWarzBTC = scrapCoinWarzBTC.profitability;
+      //let profCoinWarzBTC = scrapCoinWarzBTC.profitability;
   
       //-- bitInfo charts
-      let diffCoinWarzBTC = scrapCoinWarzBTC.difficulty;
+      /* let diffCoinWarzBTC = scrapCoinWarzBTC.difficulty;
       let blockReward = scrapCoinWarzBTC.blockReward;
       let trxFee = await bitinfochartsBTC(page);
       //trxFee = parseFloat(trxFee);
       let totalRew = parseFloat(trxFee) + blockReward;
       let profBitinfochartsBTC = (totalRew * 1000000000000 * 600 * 144) / (diffCoinWarzBTC * 4294967296)
       profBitinfochartsBTC = parseFloat(profBitinfochartsBTC.toFixed(8));
-  
-      arrProf.push(profF2PoolBTC, profCoinWarzBTC, profBitinfochartsBTC)
+   */
+      arrProf.push(profF2PoolBTC);
   
       
   
@@ -1204,12 +1209,12 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
       const btcMiningPools = {
         f2PoolBTC: scrapF2PoolBTC,
-        coinwarzBTC: scrapCoinWarzBTC,
+       /*  coinwarzBTC: scrapCoinWarzBTC,
         bitInfoChartsBTC: { 
           poolName: "bitInfoCharts",
           trxFeeInBlock: parseFloat(trxFee),
           profitability: profBitinfochartsBTC,
-        },
+        }, */
         
       }
   
@@ -1287,7 +1292,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
   //------------------------------------Scraping BCH ----------------------------------------
   
-  app.get('/miningPools/bch/crawler', (req, res) => {
+/*   app.get('/miningPools/bch/crawler', (req, res) => {
   
    //COIN WARZ
   async function coinWarzBCH(page) {
@@ -1389,7 +1394,7 @@ app.get('/miningPools/ETH/api', (req, res) => {
   
     scrapingBCH();
   
-  });
+  }); */
   
   
   
