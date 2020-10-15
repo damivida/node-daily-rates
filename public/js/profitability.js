@@ -95,7 +95,11 @@ if(!coin || !method) {
         response.json().then((data) => {
             if (data.error) {
                 console.log(error);
-            }else if (method == 'api' || 'crawler') {
+                poolNameSelector.textContent = data.error;
+                
+            }
+            
+            else  {
 
                let poolName = '';
                let res = '';

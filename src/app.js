@@ -908,12 +908,14 @@ app.get('/miningPools/ETH/api', (req, res) => {
       const avgLtcMiningProf = {
         avgLtcProf: averageFunc(allProfArr)
       }
-  
+
       const ltcMiningPools = { whatToMineData, viaBtcData, poolInData, avgLtcMiningProf };
-      res.send({ ltcMiningPools });
+
+   
+     res.send({ ltcMiningPools });
   
     })).catch(errors => {
-      console.log(errors);
+      res.send({error})
     })
   
   });
