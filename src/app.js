@@ -5,6 +5,8 @@ const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 const axios = require('axios');
 
+
+
 const poloniexApi = require('./utils/poloniex');
 const binanceApi = require('./utils/binance');
 const hitBtcApi = require('./utils/hitbtc');
@@ -16,11 +18,14 @@ const averageFuncToFixed8 = require('./functions/averageFuncToFixed8')
 const averageFuncToFixed2 = require('./functions/averageFuncToFixed2')
 const profRound = require('./functions/profRound');
 const averageFunc = require('./functions/averageFunc');
-const {coinotronDenom,testMethod, coinotronDenomHs} = require('./functions/functionsAll')
+const {coinotronDenom,testMethod, coinotronDenomHs} = require('./functions/functionsAll');
+//const timeout = require('./functions/timeout');
 
 
 const app = express();
 const port = process.env.PORT || 8000;
+
+
 
 //Define paths for express config
 const publicDirectoryPath = path.join(__dirname, '../public');
@@ -817,8 +822,11 @@ app.get('/miningPools/ETH/api', (req, res) => {
       }
   
     }
-  
+
+    
     const etcScraping = async () => {
+
+
       const browser = await puppeteer.launch({ headless: true , args: ["--no-sandbox"] });
       const page = await browser.newPage();
   
@@ -849,9 +857,14 @@ app.get('/miningPools/ETH/api', (req, res) => {
       }
       //console.log(etcMining)
       res.send({ etcMiningPools });
+
+     
     }
   
-    etcScraping();
+   
+  
+  etcScraping();
+
   
   });
   
@@ -1597,8 +1610,30 @@ app.get('/miningPools/ETH/api', (req, res) => {
       res.send({ dashMiningPools });
      
     }
+
   
-    scrapingDASH();
+   
+
+   //-terminate the proces after 
+
+   const doPromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({
+        error: 'The call is to long, please repeate the process.' 
+      });
+      //reject('This is a promise reject after 3 sec...')
+    }, 25000);
+});
+
+    
+     scrapingDASH();
+
+    doPromise.then((result) => {
+       return res.send(result);
+     }).catch((error) => {
+       return res.send({error})
+     })
+
   
   });
   
@@ -2173,3 +2208,4 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
     console.log(`Server is up and running on port ${port} .`)
 });
+

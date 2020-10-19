@@ -94,7 +94,7 @@ if(!coin || !method) {
     fetch(`/miningPools/${coin}/${method}`).then((response) => {
         response.json().then((data) => {
             if (data.error) {
-                console.log(error);
+                //console.log(error);
                 poolNameSelector.textContent = data.error;
                 
             }
