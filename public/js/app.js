@@ -70,6 +70,14 @@ dailyRatesForm.addEventListener('submit', (e) => {
         let n = date.getTimezoneOffset();
         let hourOffSet = (n/60)*-1;
 
+    //settig offest to 2 on dates before time change on 25.10 
+   // temp solution this has to be corrected in the future
+   const inputUnixTime  = Date.parse(startDate);
+
+   if(inputUnixTime <= 1603584000000) {
+      hourOffSet += 1;
+   }
+
         //adjusting time
         let timeRange = [0,0, ':', 0,0, ':', 0,0];
         timeRange[1] = hourOffSet;
@@ -83,6 +91,8 @@ dailyRatesForm.addEventListener('submit', (e) => {
         return unixDateTime;
 
     }
+
+    
 
     console.log(time);
     const startDate = unixTime(time);
