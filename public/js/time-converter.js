@@ -40,7 +40,8 @@ const unixTime = (startDate) => {
 
 
 
-   //setig offest to 2 on dates before time change on 25.10
+   //settig offest to 2 on dates before time change on 25.10 
+   // temp solution this has to be corrected in the future
    const inputUnixTime  = Date.parse(startDate);
 
    if(inputUnixTime <= 1603584000000) {
