@@ -11,9 +11,6 @@ const coinBaseProApi = require('../utils/coinBasePro');
 
 const averageFuncToFixed8 = require('../functions/averageFuncToFixed8');
 const averageFuncToFixed2 = require('../functions/averageFuncToFixed2')
-const profRound = require('../functions/profRound');
-const averageFunc = require('../functions/averageFunc');
-const {coinotronDenom,testMethod, coinotronDenomHs} = require('../functions/functionsAll');
 
 
 //GET POLONIEX API

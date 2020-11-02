@@ -25,7 +25,7 @@ profForm.addEventListener('submit', (e) => {
     const method = getMethod.value;
 
     if (!coin) {
-        console.log('Coin coin')
+        console.log('Select coin')
     }
 
 //Method to display available pools-----------
