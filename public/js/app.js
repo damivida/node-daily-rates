@@ -15,6 +15,9 @@ const messageEight = document.querySelector('#message-8')
 const messageNine = document.querySelector('#message-9')
 const messageTen = document.querySelector('#message-10')
 const messageEleven = document.querySelector('#message-11')
+const messageTwelve = document.querySelector('#message-12')
+const message13 = document.querySelector('#message-13')
+
 
 let exchangesAvailable = document.querySelector('#exchangesToSellect');
 
@@ -106,7 +109,8 @@ dailyRatesForm.addEventListener('submit', (e) => {
             if (data.error) {
                 console.log(data.error);
                 messageOne.textContent = data.error;
-                messageTwo.textContent = '';
+                message13.textContent = '';
+               /*  messageTwo.textContent = '';
                 messageThree.textContent = ''
                 messageFour.textContent = ''
                 messageFive.textContent = ''
@@ -116,15 +120,52 @@ dailyRatesForm.addEventListener('submit', (e) => {
                 messageNine.textContent = ''
                 messageTen.textContent = ''
                 messageEleven.textContent = '';
-
-            } else if (exchange !== 'exchangeAverage') {
+                messageTwelve.textContent = '';
+ */
+            } else  {
                 /*  console.log(exchange)
                  console.log(data.unixTime);
                  console.log(`Date: ${time}`);
                  console.log(data.pair);
                  console.log(data.weightedAverage); */
+                 let html = '';
 
-                messageOne.textContent = `Exchange: ${data.exchange}`;
+                 for(key in data) {
+
+                    let fieldName = key;
+                    let value = data[key];
+
+                    if(fieldName == 'exchange') {
+                        fieldName = '<span style="color: rgb(43, 46, 226); font-weight: bold">' + fieldName + '</span>';
+                        value = '<span style="color: rgb(43, 46, 226); font-weight: bold">' + value + '</span>';
+                    }
+
+                    if(fieldName == 'average') {
+                        fieldName = '<span style="color: rgb(53, 0, 139)">' + fieldName + '</span>';
+                        value = '<span style="color: rgb(53, 0, 139)">' + value + '</span>';
+                    }
+
+                    if(fieldName == 'vwap') {
+                        fieldName = '<span style="color: rgb(184, 48, 75)">' + fieldName + '</span>';
+                        value = '<span style="color: rgb(184, 48, 75)">' + value + '</span>';
+                    }
+
+                    if(fieldName == 'link') {
+
+                        value = '<a href="' + value + '" target = "_blank">market chart</a></br>';
+                    }
+                
+
+                    html +=  fieldName + ": ";
+                    html += value;
+                    html += '</br>'
+                    html += '</br>'; 
+                         
+                 }
+                // console.log(html)
+
+
+              /*   messageOne.textContent = `Exchange: ${data.exchange}`;
                 messageTwo.textContent = `Unix Time: ${data.unixTime}`;
                 messageThree.textContent = `Date: ${time}`;
                 messageFour.textContent = `Pair: ${data.pair}`;
@@ -134,13 +175,18 @@ dailyRatesForm.addEventListener('submit', (e) => {
                 messageEight.textContent = `Close: ${data.close}`;
                 messageNine.textContent = `Volume: ${data.volume}`;
                 messageTen.textContent = `Average: ${data.average}`;
-                messageEleven.textContent = '';
-                if(exchange === 'poloniex') {
+                messageEleven.textContent = `VWAP: ${data.vwap}`; */
+                message13.innerHTML = html;
+                messageOne.textContent = ''
+
+
+               /*  if(exchange === 'poloniex') {
                     messageEleven.textContent = `Weighted Average: ${data.weightedAverage}`;
-                }
+                    messageTwelve.textContent = `VWAP:  ${data.vwap}`;
+                } */
 
                 
-            } else {
+            } /* else {
 
                 messageOne.textContent = 'All Markets Average:';
                 messageTwo.textContent = `Unix Time: ${data.unixTime}`;
@@ -153,7 +199,7 @@ dailyRatesForm.addEventListener('submit', (e) => {
                 messageEleven.textContent = `All Markets Avg: ${data.allMarketsAvg}`;
                 messageNine.textContent = '';
                 messageTen.textContent = '';
-            }
+            } */
         })
     });
 });

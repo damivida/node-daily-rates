@@ -117,7 +117,7 @@ if(!coin || !method) {
                 }
 
                  pools = data[key];
-                 poolName = key + '</br></br>';
+                 poolName = key ;
 
                  for (keys in pools) {
                     resPools = pools[keys];

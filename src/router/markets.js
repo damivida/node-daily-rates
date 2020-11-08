@@ -11,6 +11,8 @@ const coinBaseProApi = require('../utils/coinBasePro');
 
 const averageFuncToFixed8 = require('../functions/averageFuncToFixed8');
 const averageFuncToFixed2 = require('../functions/averageFuncToFixed2')
+const averageFunc = require('../functions/averageFunc');
+
 
 
 //GET POLONIEX API
@@ -29,9 +31,14 @@ router.get('/poloniex', (req, res) => {
             });
         }
 
-        let average = averageFuncToFixed8(high,low,close,open)
+        let vwap = averageFunc([high, low, close]);
+        let average = averageFunc([high,low,close,open]);
+        let link = `https://poloniex.com/exchange/${req.query.asset2}_${req.query.asset1}`;
+        
+        
 
-        console.log(average);
+        //console.log(average);
+        //console.log(vwap);
 
         res.send({
             exchange: 'Poloniex',
@@ -43,7 +50,8 @@ router.get('/poloniex', (req, res) => {
             close: close.toFixed(8),
             volume: volume.toFixed(8),
             average,
-            weightedAverage: wta.toFixed(8)
+            vwap,
+            link
         });
     });
 });
@@ -58,9 +66,6 @@ router.get('/binance', (req, res) => {
         })
     }
 
-
-    if(req.query.asset1 === 'BTC') {
-
         binanceApi(req.query.time, req.query.asset1, req.query.asset2, (error, { open, high, low, close, volume } = {}) => {
             if (error) {
                 return res.send({
@@ -68,7 +73,9 @@ router.get('/binance', (req, res) => {
                 });
             }
     
-            let average = averageFuncToFixed2(high,low,close,open)
+            let vwap = averageFunc([high, low, close]);
+            let average = averageFunc([high,low,close,open]);
+            let link = `https://www.binance.com/en/trade/${req.query.asset1}_${req.query.asset2}?layout=pro`;
     
             res.send({
                 exchange: 'Binance',
@@ -79,33 +86,12 @@ router.get('/binance', (req, res) => {
                 low: low.toFixed(8),
                 close: close.toFixed(8),
                 volume: volume.toFixed(8),
-                average
+                average,
+                vwap,
+                link
             });
         })
-
-    }else {
-        binanceApi(req.query.time, req.query.asset1, req.query.asset2, (error, { open, high, low, close, volume } = {}) => {
-            if (error) {
-                return res.send({
-                    error: error
-                });
-            }
     
-            let average = averageFuncToFixed8(high,low,close,open)
-    
-            res.send({
-                exchange: 'Binance',
-                unixTime: req.query.time,
-                pair: `${req.query.asset1}/${req.query.asset2}`,
-                open: open.toFixed(8),
-                high: high.toFixed(8),
-                low: low.toFixed(8),
-                close: close.toFixed(8),
-                volume: volume.toFixed(8),
-                average
-            });
-        })
-    }
 
 });
 
@@ -127,7 +113,9 @@ router.get('/hitbtc', (req, res) => {
         }
 
         //average calc
-        let average = averageFuncToFixed8(high,low,close,open)
+        let vwap = averageFunc([high, low, close]);
+        let average = averageFunc([high,low,close,open]);
+        let link = `https://hitbtc.com/${req.query.asset1}-to-${req.query.asset2}`;
 
         res.send({
             exchange: 'HitBtc',
@@ -138,7 +126,9 @@ router.get('/hitbtc', (req, res) => {
             low: low.toFixed(10),
             close: close.toFixed(10),
             volume: volume.toFixed(10),
-            average
+            average,
+            vwap,
+            link
 
         });
     });
@@ -162,7 +152,9 @@ router.get('/gateio', (req, res) => {
 
 
         //average calc
-        let average = averageFuncToFixed8(high,low,close,open)
+        let vwap = averageFunc([high, low, close]);
+        let average = averageFunc([high,low,close,open]);
+        let link = `https://www.gate.io/trade/${req.query.asset1}_${req.query.asset2}`;
 
 
         res.send({
@@ -175,6 +167,8 @@ router.get('/gateio', (req, res) => {
             close: close.toFixed(8),
             volume: volume.toFixed(10),
             average,
+            vwap,
+            link
         });
     });
 });
@@ -190,8 +184,6 @@ router.get('/bitfinex', (req, res) => {
 
     bitfinexApi(req.query.time, req.query.asset1, req.query.asset2, (error, {open, high, low, close, volume} = {}) => {
 
-        if(req.query.asset1 === 'BTC') {
-
             if (error) {
                 return res.send({
                     error
@@ -199,7 +191,9 @@ router.get('/bitfinex', (req, res) => {
             }
 
         //average calc
-        let average = averageFuncToFixed2(high,low,close,open)
+        let vwap = averageFunc([high, low, close]);
+        let average = averageFunc([high,low,close,open]);
+        let link = `https://www.bitfinex.com/t/${req.query.asset1}:${req.query.asset2}`
 
 
             res.send({
@@ -211,32 +205,10 @@ router.get('/bitfinex', (req, res) => {
                 low: low.toFixed(8),
                 close: close.toFixed(8), 
                 volume: volume.toFixed(8),
-                average 
+                average,
+                vwap,
+                link
             });
-        } else {
-
-                
-            if (error) {
-                return res.send({
-                    error
-                });
-            }
-
-            let average = averageFuncToFixed8(high,low,close,open)
-
-
-            res.send({
-                exchange: 'Bitfinex',
-                unixTime: req.query.time,
-                pair: `${req.query.asset1}/${req.query.asset2}`,
-                open: open.toFixed(8),
-                high: high.toFixed(8),
-                low: low.toFixed(8),
-                close: close.toFixed(8), 
-                volume: volume.toFixed(8),
-                average 
-            });
-        }
       
     });
 });
@@ -264,7 +236,9 @@ router.get('/kraken', (req, res) => {
                 })
             }
 
-            let average = averageFuncToFixed2(high,low,close,open)
+            let vwap = averageFunc([high, low, close]);
+            let average = averageFunc([high,low,close,open]);
+            let link = `https://trade.kraken.com/charts/KRAKEN:${req.query.asset1}-${req.query.asset2}`;
 
             res.send({
                 exchange: 'Kraken',
@@ -276,7 +250,8 @@ router.get('/kraken', (req, res) => {
                 close: close.toFixed(8),
                 volume: volume.toFixed(8),
                 average,
-                weightedAverage: 'Currently not in use for Kraken'
+                vwap,
+                link
             });
         })   
     })
@@ -300,7 +275,8 @@ router.get('/coinbasepro', (req, res) => {
 
 
         //average calc
-        let average = averageFuncToFixed2(high,low,close,open)
+        let vwap = averageFunc([high, low, close]);
+        let average = averageFunc([high,low,close,open]);
 
 
         res.send({
@@ -313,6 +289,7 @@ router.get('/coinbasepro', (req, res) => {
             close: close.toFixed(2),
             volume: volume.toFixed(8),
             average,
+            vwap
         });
     });
 });
@@ -407,7 +384,7 @@ router.get('/exchangeAverage', (req, res) => {
                         binAvg:binAvgStr,
                         hitAvg:hitAvgStr,
                         gateAvg:gateAvgStr,
-                        allMarketsAvg:allExchangeAverageStr
+                        average:allExchangeAverageStr
                    })
                 });
             });
