@@ -23,11 +23,10 @@ router.get('/miningPools/ETH/api', (req, res) => {
       const viaBtcResponse = responses[1].data;
       const poolInResponse = responses[2].data;
   
-      const viaBtcProf = viaBtcResponse["data"][0]["profit"]["ETH"];
-      const fee = viaBtcResponse["data"][0]["pps_fee_rate"];
-      const correctionFactor = 0.004;
-      const feeCorrected = fee - correctionFactor;
-      let viaBtcProfNoFee = (viaBtcProf/((100-(feeCorrected*100))/100)).toFixed(8);
+      //via btc
+      const miningRewardWithFeeVia = viaBtcResponse["data"][0]["profit"]["ETH"];
+      const feeVia = viaBtcResponse["data"][0]["pps_fee_rate"]*100;
+      const profitabilityVia = parseFloat((miningRewardWithFeeVia / ((100 - feeVia) / 100)).toFixed(8));
   
       const whatToMineData = {
         poolName: "WhatToMine",
@@ -37,9 +36,9 @@ router.get('/miningPools/ETH/api', (req, res) => {
   
       const viaBtcData = {
         poolName: "ViaBtc",
-        fee: fee,
-        miningRewardWithFee: viaBtcResponse["data"][0]["profit"]["ETH"],
-        profitability: viaBtcProfNoFee,
+        fee: feeVia,
+        miningRewardWithFee:miningRewardWithFeeVia,
+        profitability: profitabilityVia,
         url: 'https://www.viabtc.com/tools/calculator?symbol=ETH'
       }
   
@@ -84,8 +83,10 @@ router.get('/miningPools/ETH/api', (req, res) => {
       const viaBtcResponse = responses[1].data;
   
   
-      const viaBtcProf = viaBtcResponse["data"][0]["profit"]["ETC"];
-      let viaBtcProfNoFee = viaBtcProf / 0.97;
+      //via btc
+      const miningRewardWithFeeVia = viaBtcResponse["data"][0]["profit"]["ETC"];
+      const feeVia = viaBtcResponse["data"][0]["pps_fee_rate"]*100;
+      const profitabilityVia = parseFloat((miningRewardWithFeeVia / ((100 - feeVia) / 100)).toFixed(8));
   
   
       const whatToMineData = {
@@ -96,7 +97,9 @@ router.get('/miningPools/ETH/api', (req, res) => {
   
       const viaBtcData = {
         poolName: "ViaBtc",
-        profitability: viaBtcResponse["data"][0]["profit"]["ETC"],
+        fee: feeVia,
+        miningRewardWithFee:miningRewardWithFeeVia,
+        profitability: profitabilityVia,
         url: 'https://www.viabtc.com/tools/calculator?symbol=ETC'
       }
   
@@ -138,10 +141,10 @@ router.get('/miningPools/ETH/api', (req, res) => {
       const viaBtcResponse = responses[1].data;
       const poolInResponse = responses[2].data;
   
-  
-      let viaBtcProf = viaBtcResponse["data"][0]["profit"]["LTC"];
-      viaBtcProf = viaBtcProf / 1000;
-      viaBtcProf = viaBtcProf.toFixed(8);
+      //via btc
+      const miningRewardWithFeeVia = viaBtcResponse["data"][0]["profit"]["LTC"]/1000;
+      const feeVia = viaBtcResponse["data"][0]["pps_fee_rate"]*100;
+      const profitabilityVia = parseFloat((miningRewardWithFeeVia / ((100 - feeVia) / 100)).toFixed(8));
   
       let poolInProf = poolInResponse["data"]["LTC"]["rewards_per_unit"];
       poolInProf = poolInProf / 1000;
@@ -156,7 +159,9 @@ router.get('/miningPools/ETH/api', (req, res) => {
   
       const viaBtcData = {
         poolName: "ViaBtc",
-        profitability: viaBtcProf,
+        fee: feeVia,
+        miningRewardWithFee:miningRewardWithFeeVia,
+        profitability: profitabilityVia,
         url: 'https://www.viabtc.com/tools/calculator?symbol=LTC'
       }
   
@@ -210,6 +215,11 @@ router.get('/miningPools/BTC/api', (req, res) => {
     const poolInResponse = responses[2].data;
     const btcComResponse = responses[3].data;
 
+    //via btc
+    const miningRewardWithFeeVia = viaBtcResponse["data"][0]["profit"]["BTC"];
+    const feeVia = viaBtcResponse["data"][0]["pps_fee_rate"]*100;
+    const profitabilityVia = parseFloat((miningRewardWithFeeVia / ((100 - feeVia) / 100)).toFixed(8));
+
     const whatToMineData = {
       poolName: "WhatToMine",
       profitability: whatToMineResponse["btc_revenue"],
@@ -218,7 +228,9 @@ router.get('/miningPools/BTC/api', (req, res) => {
 
     const viaBtcData = {
       poolName: "ViaBtc",
-      profitability: viaBtcResponse["data"][0]["profit"]["BTC"],
+      fee: feeVia,
+      miningRewardWithFee:miningRewardWithFeeVia,
+      profitability: profitabilityVia,
       url: 'https://www.viabtc.com/tools/calculator?symbol=BTC'
     }
 
@@ -276,6 +288,12 @@ router.get('/miningPools/BCH/api', (req, res) => {
     const btcComResponse = responses[3].data;
 
 
+    //via btc
+    const miningRewardWithFeeVia = viaBtcResponse["data"][0]["profit"]["BCH"];
+    const feeVia = viaBtcResponse["data"][0]["pps_fee_rate"]*100;
+    const profitabilityVia = parseFloat((miningRewardWithFeeVia / ((100 - feeVia) / 100)).toFixed(8));
+
+
     const whatToMineData = {
       poolName: "WhatToMine",
       profitability: whatToMineResponse["estimated_rewards"],
@@ -284,7 +302,9 @@ router.get('/miningPools/BCH/api', (req, res) => {
 
     const viaBtcData = {
       poolName: "ViaBtc",
-      profitability: viaBtcResponse["data"][0]["profit"]["BCH"],
+      fee: feeVia,
+      miningRewardWithFee:miningRewardWithFeeVia,
+      profitability: profitabilityVia,
       url: 'https://www.viabtc.com/tools/calculator?symbol=BCH'
     }
 
@@ -337,8 +357,14 @@ router.get('/miningPools/DASH/api', (req, res) => {
     let whatToMineProf = whatToMineResponse["estimated_rewards"] / 1000;
     whatToMineProf = whatToMineProf.toFixed(8).toString();
 
-    let viaBtcProf = viaBtcResponse["data"][0]["profit"]["DASH"] / 1000;
-    viaBtcProf = viaBtcProf.toFixed(8).toString();
+   /*  let viaBtcProf = viaBtcResponse["data"][0]["profit"]["DASH"] / 1000;
+    viaBtcProf = viaBtcProf.toFixed(8).toString(); */
+
+    //via btc
+    const miningRewardWithFeeVia = viaBtcResponse["data"][0]["profit"]["DASH"]/1000;
+    const feeVia = viaBtcResponse["data"][0]["pps_fee_rate"]*100;
+    const profitabilityVia = parseFloat((miningRewardWithFeeVia / ((100 - feeVia) / 100)).toFixed(8));
+
 
     let poolInProf = poolInResponse["data"]["DASH"]["rewards_per_unit"] / 1000;
     poolInProf = poolInProf.toFixed(8).toString();
@@ -352,7 +378,9 @@ router.get('/miningPools/DASH/api', (req, res) => {
 
     const viaBtcData = {
       poolName: "ViaBtc",
-      profitability: viaBtcProf,
+      fee: feeVia,
+      miningRewardWithFee:miningRewardWithFeeVia,
+      profitability: profitabilityVia,
       url: 'https://www.viabtc.com/tools/calculator?symbol=DASH'
     }
 
@@ -400,8 +428,11 @@ router.get('/miningPools/ZEC/api', (req, res) => {
     let whatToMineProf = whatToMineResponse["estimated_rewards"] / 1000;
     whatToMineProf = whatToMineProf.toFixed(8).toString();
 
-    let viaBtcProf = viaBtcResponse["data"][0]["profit"]["ZEC"] / 1000;
-    viaBtcProf = viaBtcProf.toFixed(8).toString();
+    //via btc
+    const miningRewardWithFeeVia = viaBtcResponse["data"][0]["profit"]["ZEC"]/1000;
+    
+    const feeVia = viaBtcResponse["data"][0]["pps_fee_rate"]*100;
+    const profitabilityVia = parseFloat((miningRewardWithFeeVia / ((100 - feeVia) / 100)).toFixed(8));
 
     let poolInProf = poolInResponse["data"]["ZEC"]["rewards_per_unit"] / 1000;
     poolInProf = poolInProf.toFixed(8).toString();
@@ -415,7 +446,9 @@ router.get('/miningPools/ZEC/api', (req, res) => {
 
     const viaBtcData = {
       poolName: "ViaBtc",
-      profitability: viaBtcProf,
+      fee: feeVia,
+      miningRewardWithFee:miningRewardWithFeeVia,
+      profitability: profitabilityVia,
       url: 'https://www.viabtc.com/tools/calculator?symbol=ZEC'
     }
 
@@ -463,11 +496,10 @@ router.get('/miningPools/XMR/api', (req, res) => {
     let whatToMineProf = whatToMineResponse["estimated_rewards"] / 1000;
     whatToMineProf = whatToMineProf.toFixed(8).toString();
 
-    let viaBtcProf = viaBtcResponse["data"][0]["profit"]["XMR"] / 1000;
-    viaBtcProf = viaBtcProf.toFixed(8).toString();
-
-    //let moneroCryptoPoolDiff = moneroCryptoPoolResponse["network"]["difficulty"];
-    //let moneroCryptoPoolreward = moneroCryptoPoolResponse["network"]["reward"];
+    //via btc
+    const miningRewardWithFeeVia = viaBtcResponse["data"][0]["profit"]["XMR"]/1000;
+    const feeVia = viaBtcResponse["data"][0]["pps_fee_rate"]*100;
+    const profitabilityVia = parseFloat((miningRewardWithFeeVia / ((100 - feeVia) / 100)).toFixed(8));
 
 
     const whatToMineData = {
@@ -478,8 +510,10 @@ router.get('/miningPools/XMR/api', (req, res) => {
 
     const viaBtcData = {
       poolName: "ViaBtc",
-      profitability: viaBtcProf,
-      url: 'https://www.viabtc.com/tools/calculator?symbol=XMR'
+      fee: feeVia,
+      miningRewardWithFee:miningRewardWithFeeVia,
+      profitability: profitabilityVia,
+      url: 'https://www.viabtc.com/tools/calculator?symbol=ETC'
     }
 
    
